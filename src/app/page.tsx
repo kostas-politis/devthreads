@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>HOME</div>;
+  return <h1 className='h1-bold primary-gradient'>HOME</h1>;
 }
