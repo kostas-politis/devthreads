@@ -1,26 +1,116 @@
 @import 'tailwindcss';
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-accent-100: #fff1e6;
+  --color-accent-500: #ff7000;
+
+  --color-dark-100: #000000;
+  --color-dark-200: #0f1117;
+  --color-dark-300: #151821;
+  --color-dark-400: #212734;
+  --color-dark-500: #3f4354;
+
+  --color-light-400: #858ead;
+  --color-light-500: #7b8ec8;
+  --color-light-700: #dce3f1;
+  --color-light-800: #f4f6f8;
+  --color-light-850: #fdfdfd;
+  --color-light-900: #ffffff;
+
+  --breakpoint-xs: 420px;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* TYPOGRAPHY */
+@utility h1-bold {
+  @apply text-[30px] leading-[1.4] font-bold tracking-[-1px];
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility h2-bold {
+  @apply text-[24px] leading-[1.3] font-bold;
+}
+
+@utility h2-semibold {
+  @apply text-[24px] leading-[1.3] font-semibold;
+}
+
+@utility h3-bold {
+  @apply text-[20px] leading-[1.3] font-bold;
+}
+
+@utility h3-semibold {
+  @apply text-[20px] leading-[1.24] font-bold;
+}
+
+@utility base-medium {
+  @apply text-[18px] leading-[1.4] font-medium;
+}
+
+@utility base-semibold {
+  @apply text-[18px] leading-[1.4] font-semibold;
+}
+
+@utility base-bold {
+  @apply text-[18px] leading-[1.4] font-bold;
+}
+
+@utility paragraph-regular {
+  @apply text-[16px] leading-[1.4] font-normal;
+}
+
+@utility paragraph-medium {
+  @apply text-[16px] leading-[1.4] font-medium;
+}
+
+@utility paragraph-regular {
+  @apply text-[16px] leading-[1.3] font-semibold;
+}
+
+@utility body-regular {
+  @apply text-[14px] leading-[1.4] font-normal;
+}
+
+@utility body-medium {
+  @apply text-[14px] leading-[1.3] font-medium;
+}
+
+@utility body-semibold {
+  @apply text-[14px] leading-[1.3] font-semibold;
+}
+
+@utility small-regular {
+  @apply text-[12px] leading-[1.3] font-normal;
+}
+
+@utility small-medium {
+  @apply text-[12px] leading-[1.3] font-medium;
+}
+
+@utility small-semibold {
+  @apply text-[12px] leading-[1.3] font-semibold;
+}
+
+@utility subtle-medium {
+  @apply text-[10px] leading-[1.3] font-medium uppercase;
+}
+
+@utility subtle-regular {
+  @apply text-[10px] leading-[1.3] font-normal;
+}
+
+/* GRADIENTS */
+.primary-gradient {
+  background: linear-gradient(
+    93.22deg,
+    #ff7000 -13.95%,
+    #e2985e 99.53%,
+    #e2995f 99.54%
+  );
+}
+
+.dark-gradient {
+  background: linear-gradient(
+    267.08deg,
+    rgba(23, 28, 35, 0.406) 10.27%,
+    rgba(19, 22, 28, 0.7) 88.57%
+  );
 }
