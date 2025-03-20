@@ -1,3 +1,9 @@
+import { ThemeTogle } from '@/components/ThemeToggle';
+
 export default function Home() {
-  return <h1 className='h1-bold primary-gradient'>HOME</h1>;
+  return (
+    <div>
+      <ThemeTogle />
+    </div>
+  );
 }
