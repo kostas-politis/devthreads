@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
@@ -11,16 +10,31 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import Image from 'next/image';
 
-export function ThemeTogle() {
+export default function ThemeTogle() {
   const { setTheme } = useTheme();
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant='outline' size='icon'>
-          <Sun className='h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90' />
-          <Moon className='absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0' />
+        <Button
+          variant='ghost'
+          size='none'
+          className='relative size-[24px] md:size-[30px]'
+        >
+          <Image
+            src='images/sun.svg'
+            alt='Sun'
+            fill
+            className='hidden dark:block'
+          />
+          <Image
+            src='images/moon.svg'
+            alt='Moon'
+            fill
+            className='dark:hidden'
+          />
           <span className='sr-only'>Toggle theme</span>
         </Button>
       </DropdownMenuTrigger>
