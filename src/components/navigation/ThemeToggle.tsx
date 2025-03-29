@@ -1,8 +1,6 @@
 'use client';
 
-import * as React from 'react';
 import { useTheme } from 'next-themes';
-
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -10,7 +8,8 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import Image from 'next/image';
+import SunSvg from '@/svg/sun.svg';
+import MoonSvg from '@/svg/moon.svg';
 
 export default function ThemeTogle() {
   const { setTheme } = useTheme();
@@ -18,24 +17,9 @@ export default function ThemeTogle() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant='ghost'
-          size='none'
-          className='relative size-[24px] md:size-[30px]'
-        >
-          <Image
-            src='images/sun.svg'
-            alt='Sun'
-            fill
-            className='hidden dark:block'
-          />
-          <Image
-            src='images/moon.svg'
-            alt='Moon'
-            fill
-            className='dark:hidden'
-          />
-          <span className='sr-only'>Toggle theme</span>
+        <Button variant='ghost'>
+          <SunSvg className='size-[24px] md:size-[30px] dark:hidden' />
+          <MoonSvg className='hidden size-[24px] md:size-[30px] dark:block' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
