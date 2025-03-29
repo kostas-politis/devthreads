@@ -21,6 +21,7 @@
   --color-light-900: #ffffff;
 
   --shadow-light-100: 10px 10px 20px 0px rgba(218, 213, 213, 0.19);
+  --shadow-light-200: 2px 0px 20px 0px rgba(39, 36, 36, 0.05);
 
   --breakpoint-xs: 420px;
 
@@ -31,15 +32,6 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
 }
 
 /* TYPOGRAPHY */

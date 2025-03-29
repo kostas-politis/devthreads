@@ -49,7 +49,7 @@ export default function MobileSidebar({
       <SheetContent
         side='left'
         hasCloseBtn={false}
-        className='bg-light-900 dark:bg-dark-200 mt-auto h-[calc(100vh-53px)] w-[260px] min-w-[260px] px-[21px] pt-[53px] pb-[26px]'
+        className='bg-light-900 dark:bg-dark-200 shadow-light-200 mt-auto h-[calc(100vh-53px)] w-[260px] min-w-[260px] px-[21px] pt-[53px] pb-[26px]'
       >
         <SheetHeader className='p-0'>
           <SheetTitle className='hidden'>Mobile Sidebar</SheetTitle>
