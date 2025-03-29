@@ -1,19 +1,14 @@
 import ROUTES from '@/constants/routes';
-import Image from 'next/image';
 import Link from 'next/link';
+import SiteLogoSvg from '@/svg/site-logo.svg';
 
 export default function SiteLogo() {
   return (
     <Link
       href={ROUTES.HOME}
-      className='font-secondary flex h-[20px] items-center gap-[4.7px] md:h-[32px]'
+      className='font-secondary flex items-center gap-[4.7px]'
     >
-      <Image
-        src='images/site-logo.svg'
-        alt='DevThreads'
-        fill
-        className='static! object-cover'
-      />
+      <SiteLogoSvg className='size-[20px] md:size-[32px]' />
       <div className='text-[16px] font-medium md:text-[24.85px]'>
         Dev<span className='text-accent font-bold'>Threads</span>
       </div>

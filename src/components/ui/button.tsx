@@ -21,11 +21,12 @@ const buttonVariants = cva(
       size: {
         sm: 'small-semibold p-[12px]',
         md: 'base-bold rounded-md p-[16px]',
+        none: '',
       },
     },
     defaultVariants: {
       variant: 'primary',
-      size: 'md',
+      size: 'none',
     },
   },
 );
