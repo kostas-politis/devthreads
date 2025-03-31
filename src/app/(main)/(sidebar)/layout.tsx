@@ -8,7 +8,7 @@ export default function SidebarLayout({
   return (
     <div className='flex'>
       {children}
-      <RightSidebar className='hidden shrink-0 sm:block' />
+      <RightSidebar className='hidden shrink-0 xl:block' />
     </div>
   );
 }
