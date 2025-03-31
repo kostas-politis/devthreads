@@ -12,8 +12,8 @@ export default function RootLayout({
   return (
     <main className='grid grid-cols-[auto_1fr]'>
       <LeftSidebarProvider>
-        <Navbar className='sticky top-0 z-50 col-span-2 h-[53px] md:h-[100px]' />
-        <LeftSidebar className='fixed top-[53px] h-[calc(100vh-53px)] self-start md:sticky md:top-[100px] md:h-[calc(100vh-100px)]'>
+        <Navbar className='sticky top-0 z-50 col-span-2 h-[53px] lg:h-[100px]' />
+        <LeftSidebar className='fixed top-[53px] h-[calc(100vh-53px)] self-start lg:sticky lg:top-[100px] lg:h-[calc(100vh-100px)]'>
           <NavLinks />
           <NavAuth />
         </LeftSidebar>

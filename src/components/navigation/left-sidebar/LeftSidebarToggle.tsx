@@ -12,7 +12,7 @@ export default function SidebarToggle() {
   const Icon = isOpen ? CloseSidabarSvg : OpenSidabarSvg;
 
   return (
-    <Button variant='ghost' onClick={handleClick} className='md:hidden'>
+    <Button variant='ghost' onClick={handleClick} className='lg:hidden'>
       <Icon className='size-[24px]' />
     </Button>
   );

@@ -11,7 +11,7 @@ export default async function UserAvatar() {
     <Button
       variant='ghost'
       size='none'
-      className='relative size-[24px] overflow-hidden rounded-full md:size-[42px]'
+      className='relative size-[24px] overflow-hidden rounded-full lg:size-[42px]'
     >
       <Image src={session.user.image || ''} alt='User Avatar' fill />
     </Button>
