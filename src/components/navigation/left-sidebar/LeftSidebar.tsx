@@ -15,7 +15,7 @@ export default function LeftSidebar({ children, className }: LeftSidebarProps) {
     <nav
       className={cn(
         !isOpen ? 'hidden' : 'flex',
-        'bg-light-900 dark:bg-dark-200 shadow-light-200 min-w-[260px] flex-col justify-between px-[21px] pt-[40px] pb-[20px] md:flex',
+        'bg-light-900 dark:bg-dark-200 shadow-light-200 min-w-[260px] flex-col justify-between px-[21px] pt-[40px] pb-[20px] lg:flex',
         className,
       )}
     >

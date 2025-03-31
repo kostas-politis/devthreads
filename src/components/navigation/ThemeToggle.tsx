@@ -18,8 +18,8 @@ export default function ThemeTogle() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant='ghost'>
-          <SunSvg className='size-[24px] md:size-[30px] dark:hidden' />
-          <MoonSvg className='hidden size-[24px] md:size-[30px] dark:block' />
+          <SunSvg className='size-[24px] lg:size-[30px] dark:hidden' />
+          <MoonSvg className='hidden size-[24px] lg:size-[30px] dark:block' />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>

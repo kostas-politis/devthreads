@@ -133,6 +133,10 @@
   );
 }
 
+@utility shadow-light-right-sidebar {
+  box-shadow: -10px 10px 20px 0px rgba(218, 213, 213, 0.1);
+}
+
 :root {
   --radius: 10px;
 }
