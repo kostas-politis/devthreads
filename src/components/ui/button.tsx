@@ -20,7 +20,8 @@ const buttonVariants = cva(
       },
       size: {
         sm: 'small-semibold p-[12px]',
-        md: 'base-bold rounded-md p-[16px]',
+        md: 'paragraph-semibolt py-[12px] px-[16px]',
+        lg: 'base-bold rounded-md p-[16px]',
         none: '',
       },
     },

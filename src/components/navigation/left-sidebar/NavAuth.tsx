@@ -42,7 +42,7 @@ export default async function NavAuth() {
       <Button
         type='submit'
         variant='ghost'
-        size='md'
+        size='lg'
         className='cursor-pointer justify-start gap-[16px] text-left'
       >
         <SignoutSvg className='size-[24px]' />
