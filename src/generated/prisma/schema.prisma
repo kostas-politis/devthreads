@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "src/generated/prisma"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  email      String       @unique
+  name       String
+  image      String
+  location   String?
+  portfolio  String?
+  reputation Int          @default(0)
+  createdAt  DateTime     @default(now())
+  accounts   Account[]
+  questions  Question[]
+  answers    Answer[]
+  votes      Vote[]
+  Collection Collection[]
+}
+
+model Account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  user              User     @relation(fields: [userId], references: [id])
+  userId            String   @db.ObjectId
+  name              String
+  image             String?
+  password          String?
+  provider          Provider
+  providerAccountId String
+  createdAt         DateTime @default(now())
+}
+
+model Question {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  author       User          @relation(fields: [authorId], references: [id])
+  authorId     String        @db.ObjectId
+  summary      String
+  description  String
+  views        Int           @default(0)
+  answersCount Int           @default(0)
+  createdAt    DateTime      @default(now())
+  answers      Answer[]
+  tags         QuestionTag[]
+  votes        Vote[]
+  Collection   Collection[]
+}
+
+model Tag {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  questionsCount Int           @default(0)
+  createdAt      DateTime      @default(now())
+  questions      QuestionTag[]
+}
+
+model QuestionTag {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  question   Question @relation(fields: [questionId], references: [id])
+  questionId String   @db.ObjectId
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  tagId      String   @db.ObjectId
+  createdAt  DateTime @default(now())
+}
+
+model Answer {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  author      User     @relation(fields: [authorId], references: [id])
+  authorId    String   @db.ObjectId
+  question    Question @relation(fields: [questionId], references: [id])
+  questionId  String   @db.ObjectId
+  description String
+  createdAt   DateTime @default(now())
+  votes       Vote[]
+}
+
+model Vote {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String    @db.ObjectId
+  question   Question? @relation(fields: [questionId], references: [id])
+  questionId String?   @db.ObjectId
+  answer     Answer?   @relation(fields: [answerId], references: [id])
+  answerId   String?   @db.ObjectId
+  type       VoteType
+  createdAt  DateTime  @default(now())
+
+  @@unique([userId, questionId])
+  @@unique([userId, answerId])
+}
+
+model Collection {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  user       User      @relation(fields: [userId], references: [id])
+  userId     String    @db.ObjectId
+  question   Question? @relation(fields: [questionId], references: [id])
+  questionId String?   @db.ObjectId
+}
+
+enum Provider {
+  GOOGLE
+  GITHUB
+  PASSWORD
+}
+
+enum VoteType {
+  UPVOTE
+  DOWNVOTE
+}
