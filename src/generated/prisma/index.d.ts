@@ -51,6 +51,12 @@ export type Vote = $Result.DefaultSelection<Prisma.$VotePayload>;
  *
  */
 export type Collection = $Result.DefaultSelection<Prisma.$CollectionPayload>;
+/**
+ * Model QuestionCollection
+ *
+ */
+export type QuestionCollection =
+  $Result.DefaultSelection<Prisma.$QuestionCollectionPayload>;
 
 /**
  * Enums
@@ -279,6 +285,19 @@ export class PrismaClient<
    * ```
    */
   get collection(): Prisma.CollectionDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.questionCollection`: Exposes CRUD operations for the **QuestionCollection** model.
+   * Example usage:
+   * ```ts
+   * // Fetch zero or more QuestionCollections
+   * const questionCollections = await prisma.questionCollection.findMany()
+   * ```
+   */
+  get questionCollection(): Prisma.QuestionCollectionDelegate<
+    ExtArgs,
+    ClientOptions
+  >;
 }
 
 export namespace Prisma {
@@ -745,6 +764,7 @@ export namespace Prisma {
     Answer: 'Answer';
     Vote: 'Vote';
     Collection: 'Collection';
+    QuestionCollection: 'QuestionCollection';
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName];
@@ -780,7 +800,8 @@ export namespace Prisma {
         | 'questionTag'
         | 'answer'
         | 'vote'
-        | 'collection';
+        | 'collection'
+        | 'questionCollection';
       txIsolationLevel: never;
     };
     model: {
@@ -1380,6 +1401,82 @@ export namespace Prisma {
           };
         };
       };
+      QuestionCollection: {
+        payload: Prisma.$QuestionCollectionPayload<ExtArgs>;
+        fields: Prisma.QuestionCollectionFieldRefs;
+        operations: {
+          findUnique: {
+            args: Prisma.QuestionCollectionFindUniqueArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload> | null;
+          };
+          findUniqueOrThrow: {
+            args: Prisma.QuestionCollectionFindUniqueOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          findFirst: {
+            args: Prisma.QuestionCollectionFindFirstArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload> | null;
+          };
+          findFirstOrThrow: {
+            args: Prisma.QuestionCollectionFindFirstOrThrowArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          findMany: {
+            args: Prisma.QuestionCollectionFindManyArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>[];
+          };
+          create: {
+            args: Prisma.QuestionCollectionCreateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          createMany: {
+            args: Prisma.QuestionCollectionCreateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          delete: {
+            args: Prisma.QuestionCollectionDeleteArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          update: {
+            args: Prisma.QuestionCollectionUpdateArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          deleteMany: {
+            args: Prisma.QuestionCollectionDeleteManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          updateMany: {
+            args: Prisma.QuestionCollectionUpdateManyArgs<ExtArgs>;
+            result: BatchPayload;
+          };
+          upsert: {
+            args: Prisma.QuestionCollectionUpsertArgs<ExtArgs>;
+            result: $Utils.PayloadToResult<Prisma.$QuestionCollectionPayload>;
+          };
+          aggregate: {
+            args: Prisma.QuestionCollectionAggregateArgs<ExtArgs>;
+            result: $Utils.Optional<AggregateQuestionCollection>;
+          };
+          groupBy: {
+            args: Prisma.QuestionCollectionGroupByArgs<ExtArgs>;
+            result: $Utils.Optional<QuestionCollectionGroupByOutputType>[];
+          };
+          findRaw: {
+            args: Prisma.QuestionCollectionFindRawArgs<ExtArgs>;
+            result: JsonObject;
+          };
+          aggregateRaw: {
+            args: Prisma.QuestionCollectionAggregateRawArgs<ExtArgs>;
+            result: JsonObject;
+          };
+          count: {
+            args: Prisma.QuestionCollectionCountArgs<ExtArgs>;
+            result:
+              | $Utils.Optional<QuestionCollectionCountAggregateOutputType>
+              | number;
+          };
+        };
+      };
     };
   } & {
     other: {
@@ -1463,6 +1560,7 @@ export namespace Prisma {
     answer?: AnswerOmit;
     vote?: VoteOmit;
     collection?: CollectionOmit;
+    questionCollection?: QuestionCollectionOmit;
   };
 
   /* Types for Logging */
@@ -1574,7 +1672,6 @@ export namespace Prisma {
     questions: number;
     answers: number;
     votes: number;
-    Collection: number;
   };
 
   export type UserCountOutputTypeSelect<
@@ -1584,7 +1681,6 @@ export namespace Prisma {
     questions?: boolean | UserCountOutputTypeCountQuestionsArgs;
     answers?: boolean | UserCountOutputTypeCountAnswersArgs;
     votes?: boolean | UserCountOutputTypeCountVotesArgs;
-    Collection?: boolean | UserCountOutputTypeCountCollectionArgs;
   };
 
   // Custom InputTypes
@@ -1637,15 +1733,6 @@ export namespace Prisma {
   };
 
   /**
-   * UserCountOutputType without action
-   */
-  export type UserCountOutputTypeCountCollectionArgs<
-    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
-  > = {
-    where?: CollectionWhereInput;
-  };
-
-  /**
    * Count Type QuestionCountOutputType
    */
 
@@ -1653,7 +1740,7 @@ export namespace Prisma {
     answers: number;
     tags: number;
     votes: number;
-    Collection: number;
+    collections: number;
   };
 
   export type QuestionCountOutputTypeSelect<
@@ -1662,7 +1749,7 @@ export namespace Prisma {
     answers?: boolean | QuestionCountOutputTypeCountAnswersArgs;
     tags?: boolean | QuestionCountOutputTypeCountTagsArgs;
     votes?: boolean | QuestionCountOutputTypeCountVotesArgs;
-    Collection?: boolean | QuestionCountOutputTypeCountCollectionArgs;
+    collections?: boolean | QuestionCountOutputTypeCountCollectionsArgs;
   };
 
   // Custom InputTypes
@@ -1708,10 +1795,10 @@ export namespace Prisma {
   /**
    * QuestionCountOutputType without action
    */
-  export type QuestionCountOutputTypeCountCollectionArgs<
+  export type QuestionCountOutputTypeCountCollectionsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
-    where?: CollectionWhereInput;
+    where?: QuestionCollectionWhereInput;
   };
 
   /**
@@ -1784,6 +1871,42 @@ export namespace Prisma {
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     where?: VoteWhereInput;
+  };
+
+  /**
+   * Count Type CollectionCountOutputType
+   */
+
+  export type CollectionCountOutputType = {
+    questions: number;
+  };
+
+  export type CollectionCountOutputTypeSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    questions?: boolean | CollectionCountOutputTypeCountQuestionsArgs;
+  };
+
+  // Custom InputTypes
+  /**
+   * CollectionCountOutputType without action
+   */
+  export type CollectionCountOutputTypeDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the CollectionCountOutputType
+     */
+    select?: CollectionCountOutputTypeSelect<ExtArgs> | null;
+  };
+
+  /**
+   * CollectionCountOutputType without action
+   */
+  export type CollectionCountOutputTypeCountQuestionsArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: QuestionCollectionWhereInput;
   };
 
   /**
@@ -2019,7 +2142,7 @@ export namespace Prisma {
       questions?: boolean | User$questionsArgs<ExtArgs>;
       answers?: boolean | User$answersArgs<ExtArgs>;
       votes?: boolean | User$votesArgs<ExtArgs>;
-      Collection?: boolean | User$CollectionArgs<ExtArgs>;
+      collection?: boolean | User$collectionArgs<ExtArgs>;
       _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs['result']['user']
@@ -2056,7 +2179,7 @@ export namespace Prisma {
     questions?: boolean | User$questionsArgs<ExtArgs>;
     answers?: boolean | User$answersArgs<ExtArgs>;
     votes?: boolean | User$votesArgs<ExtArgs>;
-    Collection?: boolean | User$CollectionArgs<ExtArgs>;
+    collection?: boolean | User$collectionArgs<ExtArgs>;
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>;
   };
 
@@ -2069,7 +2192,7 @@ export namespace Prisma {
       questions: Prisma.$QuestionPayload<ExtArgs>[];
       answers: Prisma.$AnswerPayload<ExtArgs>[];
       votes: Prisma.$VotePayload<ExtArgs>[];
-      Collection: Prisma.$CollectionPayload<ExtArgs>[];
+      collection: Prisma.$CollectionPayload<ExtArgs> | null;
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -2621,16 +2744,18 @@ export namespace Prisma {
         >
       | Null
     >;
-    Collection<T extends User$CollectionArgs<ExtArgs> = {}>(
-      args?: Subset<T, User$CollectionArgs<ExtArgs>>,
-    ): Prisma.PrismaPromise<
-      | $Result.GetResult<
-          Prisma.$CollectionPayload<ExtArgs>,
-          T,
-          'findMany',
-          GlobalOmitOptions
-        >
-      | Null
+    collection<T extends User$collectionArgs<ExtArgs> = {}>(
+      args?: Subset<T, User$collectionArgs<ExtArgs>>,
+    ): Prisma__CollectionClient<
+      $Result.GetResult<
+        Prisma.$CollectionPayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
     >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -3185,9 +3310,9 @@ export namespace Prisma {
   };
 
   /**
-   * User.Collection
+   * User.collection
    */
-  export type User$CollectionArgs<
+  export type User$collectionArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
@@ -3203,13 +3328,6 @@ export namespace Prisma {
      */
     include?: CollectionInclude<ExtArgs> | null;
     where?: CollectionWhereInput;
-    orderBy?:
-      | CollectionOrderByWithRelationInput
-      | CollectionOrderByWithRelationInput[];
-    cursor?: CollectionWhereUniqueInput;
-    take?: number;
-    skip?: number;
-    distinct?: CollectionScalarFieldEnum | CollectionScalarFieldEnum[];
   };
 
   /**
@@ -4475,12 +4593,10 @@ export namespace Prisma {
 
   export type QuestionAvgAggregateOutputType = {
     views: number | null;
-    answersCount: number | null;
   };
 
   export type QuestionSumAggregateOutputType = {
     views: number | null;
-    answersCount: number | null;
   };
 
   export type QuestionMinAggregateOutputType = {
@@ -4489,7 +4605,6 @@ export namespace Prisma {
     summary: string | null;
     description: string | null;
     views: number | null;
-    answersCount: number | null;
     createdAt: Date | null;
   };
 
@@ -4499,7 +4614,6 @@ export namespace Prisma {
     summary: string | null;
     description: string | null;
     views: number | null;
-    answersCount: number | null;
     createdAt: Date | null;
   };
 
@@ -4509,19 +4623,16 @@ export namespace Prisma {
     summary: number;
     description: number;
     views: number;
-    answersCount: number;
     createdAt: number;
     _all: number;
   };
 
   export type QuestionAvgAggregateInputType = {
     views?: true;
-    answersCount?: true;
   };
 
   export type QuestionSumAggregateInputType = {
     views?: true;
-    answersCount?: true;
   };
 
   export type QuestionMinAggregateInputType = {
@@ -4530,7 +4641,6 @@ export namespace Prisma {
     summary?: true;
     description?: true;
     views?: true;
-    answersCount?: true;
     createdAt?: true;
   };
 
@@ -4540,7 +4650,6 @@ export namespace Prisma {
     summary?: true;
     description?: true;
     views?: true;
-    answersCount?: true;
     createdAt?: true;
   };
 
@@ -4550,7 +4659,6 @@ export namespace Prisma {
     summary?: true;
     description?: true;
     views?: true;
-    answersCount?: true;
     createdAt?: true;
     _all?: true;
   };
@@ -4652,7 +4760,6 @@ export namespace Prisma {
     summary: string;
     description: string;
     views: number;
-    answersCount: number;
     createdAt: Date;
     _count: QuestionCountAggregateOutputType | null;
     _avg: QuestionAvgAggregateOutputType | null;
@@ -4683,13 +4790,12 @@ export namespace Prisma {
       summary?: boolean;
       description?: boolean;
       views?: boolean;
-      answersCount?: boolean;
       createdAt?: boolean;
       author?: boolean | UserDefaultArgs<ExtArgs>;
       answers?: boolean | Question$answersArgs<ExtArgs>;
       tags?: boolean | Question$tagsArgs<ExtArgs>;
       votes?: boolean | Question$votesArgs<ExtArgs>;
-      Collection?: boolean | Question$CollectionArgs<ExtArgs>;
+      collections?: boolean | Question$collectionsArgs<ExtArgs>;
       _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs['result']['question']
@@ -4701,20 +4807,13 @@ export namespace Prisma {
     summary?: boolean;
     description?: boolean;
     views?: boolean;
-    answersCount?: boolean;
     createdAt?: boolean;
   };
 
   export type QuestionOmit<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = $Extensions.GetOmit<
-    | 'id'
-    | 'authorId'
-    | 'summary'
-    | 'description'
-    | 'views'
-    | 'answersCount'
-    | 'createdAt',
+    'id' | 'authorId' | 'summary' | 'description' | 'views' | 'createdAt',
     ExtArgs['result']['question']
   >;
   export type QuestionInclude<
@@ -4724,7 +4823,7 @@ export namespace Prisma {
     answers?: boolean | Question$answersArgs<ExtArgs>;
     tags?: boolean | Question$tagsArgs<ExtArgs>;
     votes?: boolean | Question$votesArgs<ExtArgs>;
-    Collection?: boolean | Question$CollectionArgs<ExtArgs>;
+    collections?: boolean | Question$collectionsArgs<ExtArgs>;
     _count?: boolean | QuestionCountOutputTypeDefaultArgs<ExtArgs>;
   };
 
@@ -4737,7 +4836,7 @@ export namespace Prisma {
       answers: Prisma.$AnswerPayload<ExtArgs>[];
       tags: Prisma.$QuestionTagPayload<ExtArgs>[];
       votes: Prisma.$VotePayload<ExtArgs>[];
-      Collection: Prisma.$CollectionPayload<ExtArgs>[];
+      collections: Prisma.$QuestionCollectionPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
@@ -4746,7 +4845,6 @@ export namespace Prisma {
         summary: string;
         description: string;
         views: number;
-        answersCount: number;
         createdAt: Date;
       },
       ExtArgs['result']['question']
@@ -5295,11 +5393,11 @@ export namespace Prisma {
         >
       | Null
     >;
-    Collection<T extends Question$CollectionArgs<ExtArgs> = {}>(
-      args?: Subset<T, Question$CollectionArgs<ExtArgs>>,
+    collections<T extends Question$collectionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Question$collectionsArgs<ExtArgs>>,
     ): Prisma.PrismaPromise<
       | $Result.GetResult<
-          Prisma.$CollectionPayload<ExtArgs>,
+          Prisma.$QuestionCollectionPayload<ExtArgs>,
           T,
           'findMany',
           GlobalOmitOptions
@@ -5351,7 +5449,6 @@ export namespace Prisma {
     readonly summary: FieldRef<'Question', 'String'>;
     readonly description: FieldRef<'Question', 'String'>;
     readonly views: FieldRef<'Question', 'Int'>;
-    readonly answersCount: FieldRef<'Question', 'Int'>;
     readonly createdAt: FieldRef<'Question', 'DateTime'>;
   }
 
@@ -5839,31 +5936,33 @@ export namespace Prisma {
   };
 
   /**
-   * Question.Collection
+   * Question.collections
    */
-  export type Question$CollectionArgs<
+  export type Question$collectionsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
-     * Select specific fields to fetch from the Collection
+     * Select specific fields to fetch from the QuestionCollection
      */
-    select?: CollectionSelect<ExtArgs> | null;
+    select?: QuestionCollectionSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the Collection
+     * Omit specific fields from the QuestionCollection
      */
-    omit?: CollectionOmit<ExtArgs> | null;
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: CollectionInclude<ExtArgs> | null;
-    where?: CollectionWhereInput;
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    where?: QuestionCollectionWhereInput;
     orderBy?:
-      | CollectionOrderByWithRelationInput
-      | CollectionOrderByWithRelationInput[];
-    cursor?: CollectionWhereUniqueInput;
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    cursor?: QuestionCollectionWhereUniqueInput;
     take?: number;
     skip?: number;
-    distinct?: CollectionScalarFieldEnum | CollectionScalarFieldEnum[];
+    distinct?:
+      | QuestionCollectionScalarFieldEnum
+      | QuestionCollectionScalarFieldEnum[];
   };
 
   /**
@@ -5892,68 +5991,44 @@ export namespace Prisma {
 
   export type AggregateTag = {
     _count: TagCountAggregateOutputType | null;
-    _avg: TagAvgAggregateOutputType | null;
-    _sum: TagSumAggregateOutputType | null;
     _min: TagMinAggregateOutputType | null;
     _max: TagMaxAggregateOutputType | null;
-  };
-
-  export type TagAvgAggregateOutputType = {
-    questionsCount: number | null;
-  };
-
-  export type TagSumAggregateOutputType = {
-    questionsCount: number | null;
   };
 
   export type TagMinAggregateOutputType = {
     id: string | null;
     name: string | null;
-    questionsCount: number | null;
     createdAt: Date | null;
   };
 
   export type TagMaxAggregateOutputType = {
     id: string | null;
     name: string | null;
-    questionsCount: number | null;
     createdAt: Date | null;
   };
 
   export type TagCountAggregateOutputType = {
     id: number;
     name: number;
-    questionsCount: number;
     createdAt: number;
     _all: number;
-  };
-
-  export type TagAvgAggregateInputType = {
-    questionsCount?: true;
-  };
-
-  export type TagSumAggregateInputType = {
-    questionsCount?: true;
   };
 
   export type TagMinAggregateInputType = {
     id?: true;
     name?: true;
-    questionsCount?: true;
     createdAt?: true;
   };
 
   export type TagMaxAggregateInputType = {
     id?: true;
     name?: true;
-    questionsCount?: true;
     createdAt?: true;
   };
 
   export type TagCountAggregateInputType = {
     id?: true;
     name?: true;
-    questionsCount?: true;
     createdAt?: true;
     _all?: true;
   };
@@ -5998,18 +6073,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      *
-     * Select which fields to average
-     **/
-    _avg?: TagAvgAggregateInputType;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
-     * Select which fields to sum
-     **/
-    _sum?: TagSumAggregateInputType;
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     *
      * Select which fields to find the minimum value
      **/
     _min?: TagMinAggregateInputType;
@@ -6039,8 +6102,6 @@ export namespace Prisma {
     take?: number;
     skip?: number;
     _count?: TagCountAggregateInputType | true;
-    _avg?: TagAvgAggregateInputType;
-    _sum?: TagSumAggregateInputType;
     _min?: TagMinAggregateInputType;
     _max?: TagMaxAggregateInputType;
   };
@@ -6048,11 +6109,8 @@ export namespace Prisma {
   export type TagGroupByOutputType = {
     id: string;
     name: string;
-    questionsCount: number;
     createdAt: Date;
     _count: TagCountAggregateOutputType | null;
-    _avg: TagAvgAggregateOutputType | null;
-    _sum: TagSumAggregateOutputType | null;
     _min: TagMinAggregateOutputType | null;
     _max: TagMaxAggregateOutputType | null;
   };
@@ -6075,7 +6133,6 @@ export namespace Prisma {
     {
       id?: boolean;
       name?: boolean;
-      questionsCount?: boolean;
       createdAt?: boolean;
       questions?: boolean | Tag$questionsArgs<ExtArgs>;
       _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>;
@@ -6086,14 +6143,13 @@ export namespace Prisma {
   export type TagSelectScalar = {
     id?: boolean;
     name?: boolean;
-    questionsCount?: boolean;
     createdAt?: boolean;
   };
 
   export type TagOmit<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = $Extensions.GetOmit<
-    'id' | 'name' | 'questionsCount' | 'createdAt',
+    'id' | 'name' | 'createdAt',
     ExtArgs['result']['tag']
   >;
   export type TagInclude<
@@ -6114,7 +6170,6 @@ export namespace Prisma {
       {
         id: string;
         name: string;
-        questionsCount: number;
         createdAt: Date;
       },
       ExtArgs['result']['tag']
@@ -6665,7 +6720,6 @@ export namespace Prisma {
   interface TagFieldRefs {
     readonly id: FieldRef<'Tag', 'String'>;
     readonly name: FieldRef<'Tag', 'String'>;
-    readonly questionsCount: FieldRef<'Tag', 'Int'>;
     readonly createdAt: FieldRef<'Tag', 'DateTime'>;
   }
 
@@ -10830,38 +10884,38 @@ export namespace Prisma {
   export type CollectionMinAggregateOutputType = {
     id: string | null;
     userId: string | null;
-    questionId: string | null;
+    createdAt: Date | null;
   };
 
   export type CollectionMaxAggregateOutputType = {
     id: string | null;
     userId: string | null;
-    questionId: string | null;
+    createdAt: Date | null;
   };
 
   export type CollectionCountAggregateOutputType = {
     id: number;
     userId: number;
-    questionId: number;
+    createdAt: number;
     _all: number;
   };
 
   export type CollectionMinAggregateInputType = {
     id?: true;
     userId?: true;
-    questionId?: true;
+    createdAt?: true;
   };
 
   export type CollectionMaxAggregateInputType = {
     id?: true;
     userId?: true;
-    questionId?: true;
+    createdAt?: true;
   };
 
   export type CollectionCountAggregateInputType = {
     id?: true;
     userId?: true;
-    questionId?: true;
+    createdAt?: true;
     _all?: true;
   };
 
@@ -10945,7 +10999,7 @@ export namespace Prisma {
   export type CollectionGroupByOutputType = {
     id: string;
     userId: string;
-    questionId: string | null;
+    createdAt: Date;
     _count: CollectionCountAggregateOutputType | null;
     _min: CollectionMinAggregateOutputType | null;
     _max: CollectionMaxAggregateOutputType | null;
@@ -10970,9 +11024,10 @@ export namespace Prisma {
     {
       id?: boolean;
       userId?: boolean;
-      questionId?: boolean;
+      createdAt?: boolean;
       user?: boolean | UserDefaultArgs<ExtArgs>;
-      question?: boolean | Collection$questionArgs<ExtArgs>;
+      questions?: boolean | Collection$questionsArgs<ExtArgs>;
+      _count?: boolean | CollectionCountOutputTypeDefaultArgs<ExtArgs>;
     },
     ExtArgs['result']['collection']
   >;
@@ -10980,20 +11035,21 @@ export namespace Prisma {
   export type CollectionSelectScalar = {
     id?: boolean;
     userId?: boolean;
-    questionId?: boolean;
+    createdAt?: boolean;
   };
 
   export type CollectionOmit<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = $Extensions.GetOmit<
-    'id' | 'userId' | 'questionId',
+    'id' | 'userId' | 'createdAt',
     ExtArgs['result']['collection']
   >;
   export type CollectionInclude<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     user?: boolean | UserDefaultArgs<ExtArgs>;
-    question?: boolean | Collection$questionArgs<ExtArgs>;
+    questions?: boolean | Collection$questionsArgs<ExtArgs>;
+    _count?: boolean | CollectionCountOutputTypeDefaultArgs<ExtArgs>;
   };
 
   export type $CollectionPayload<
@@ -11002,13 +11058,13 @@ export namespace Prisma {
     name: 'Collection';
     objects: {
       user: Prisma.$UserPayload<ExtArgs>;
-      question: Prisma.$QuestionPayload<ExtArgs> | null;
+      questions: Prisma.$QuestionCollectionPayload<ExtArgs>[];
     };
     scalars: $Extensions.GetPayloadResult<
       {
         id: string;
         userId: string;
-        questionId: string | null;
+        createdAt: Date;
       },
       ExtArgs['result']['collection']
     >;
@@ -11526,18 +11582,16 @@ export namespace Prisma {
       ExtArgs,
       GlobalOmitOptions
     >;
-    question<T extends Collection$questionArgs<ExtArgs> = {}>(
-      args?: Subset<T, Collection$questionArgs<ExtArgs>>,
-    ): Prisma__QuestionClient<
-      $Result.GetResult<
-        Prisma.$QuestionPayload<ExtArgs>,
-        T,
-        'findUniqueOrThrow',
-        GlobalOmitOptions
-      > | null,
-      null,
-      ExtArgs,
-      GlobalOmitOptions
+    questions<T extends Collection$questionsArgs<ExtArgs> = {}>(
+      args?: Subset<T, Collection$questionsArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      | $Result.GetResult<
+          Prisma.$QuestionCollectionPayload<ExtArgs>,
+          T,
+          'findMany',
+          GlobalOmitOptions
+        >
+      | Null
     >;
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -11581,7 +11635,7 @@ export namespace Prisma {
   interface CollectionFieldRefs {
     readonly id: FieldRef<'Collection', 'String'>;
     readonly userId: FieldRef<'Collection', 'String'>;
-    readonly questionId: FieldRef<'Collection', 'String'>;
+    readonly createdAt: FieldRef<'Collection', 'DateTime'>;
   }
 
   // Custom InputTypes
@@ -11988,24 +12042,33 @@ export namespace Prisma {
   };
 
   /**
-   * Collection.question
+   * Collection.questions
    */
-  export type Collection$questionArgs<
+  export type Collection$questionsArgs<
     ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
   > = {
     /**
-     * Select specific fields to fetch from the Question
+     * Select specific fields to fetch from the QuestionCollection
      */
-    select?: QuestionSelect<ExtArgs> | null;
+    select?: QuestionCollectionSelect<ExtArgs> | null;
     /**
-     * Omit specific fields from the Question
+     * Omit specific fields from the QuestionCollection
      */
-    omit?: QuestionOmit<ExtArgs> | null;
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
     /**
      * Choose, which related nodes to fetch as well
      */
-    include?: QuestionInclude<ExtArgs> | null;
-    where?: QuestionWhereInput;
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    where?: QuestionCollectionWhereInput;
+    orderBy?:
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    cursor?: QuestionCollectionWhereUniqueInput;
+    take?: number;
+    skip?: number;
+    distinct?:
+      | QuestionCollectionScalarFieldEnum
+      | QuestionCollectionScalarFieldEnum[];
   };
 
   /**
@@ -12026,6 +12089,1239 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: CollectionInclude<ExtArgs> | null;
+  };
+
+  /**
+   * Model QuestionCollection
+   */
+
+  export type AggregateQuestionCollection = {
+    _count: QuestionCollectionCountAggregateOutputType | null;
+    _min: QuestionCollectionMinAggregateOutputType | null;
+    _max: QuestionCollectionMaxAggregateOutputType | null;
+  };
+
+  export type QuestionCollectionMinAggregateOutputType = {
+    id: string | null;
+    questionId: string | null;
+    collectionId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type QuestionCollectionMaxAggregateOutputType = {
+    id: string | null;
+    questionId: string | null;
+    collectionId: string | null;
+    createdAt: Date | null;
+  };
+
+  export type QuestionCollectionCountAggregateOutputType = {
+    id: number;
+    questionId: number;
+    collectionId: number;
+    createdAt: number;
+    _all: number;
+  };
+
+  export type QuestionCollectionMinAggregateInputType = {
+    id?: true;
+    questionId?: true;
+    collectionId?: true;
+    createdAt?: true;
+  };
+
+  export type QuestionCollectionMaxAggregateInputType = {
+    id?: true;
+    questionId?: true;
+    collectionId?: true;
+    createdAt?: true;
+  };
+
+  export type QuestionCollectionCountAggregateInputType = {
+    id?: true;
+    questionId?: true;
+    collectionId?: true;
+    createdAt?: true;
+    _all?: true;
+  };
+
+  export type QuestionCollectionAggregateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which QuestionCollection to aggregate.
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of QuestionCollections to fetch.
+     */
+    orderBy?:
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the start position
+     */
+    cursor?: QuestionCollectionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` QuestionCollections from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` QuestionCollections.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Count returned QuestionCollections
+     **/
+    _count?: true | QuestionCollectionCountAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the minimum value
+     **/
+    _min?: QuestionCollectionMinAggregateInputType;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     *
+     * Select which fields to find the maximum value
+     **/
+    _max?: QuestionCollectionMaxAggregateInputType;
+  };
+
+  export type GetQuestionCollectionAggregateType<
+    T extends QuestionCollectionAggregateArgs,
+  > = {
+    [P in keyof T & keyof AggregateQuestionCollection]: P extends
+      | '_count'
+      | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateQuestionCollection[P]>
+      : GetScalarType<T[P], AggregateQuestionCollection[P]>;
+  };
+
+  export type QuestionCollectionGroupByArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    where?: QuestionCollectionWhereInput;
+    orderBy?:
+      | QuestionCollectionOrderByWithAggregationInput
+      | QuestionCollectionOrderByWithAggregationInput[];
+    by: QuestionCollectionScalarFieldEnum[] | QuestionCollectionScalarFieldEnum;
+    having?: QuestionCollectionScalarWhereWithAggregatesInput;
+    take?: number;
+    skip?: number;
+    _count?: QuestionCollectionCountAggregateInputType | true;
+    _min?: QuestionCollectionMinAggregateInputType;
+    _max?: QuestionCollectionMaxAggregateInputType;
+  };
+
+  export type QuestionCollectionGroupByOutputType = {
+    id: string;
+    questionId: string;
+    collectionId: string;
+    createdAt: Date;
+    _count: QuestionCollectionCountAggregateOutputType | null;
+    _min: QuestionCollectionMinAggregateOutputType | null;
+    _max: QuestionCollectionMaxAggregateOutputType | null;
+  };
+
+  type GetQuestionCollectionGroupByPayload<
+    T extends QuestionCollectionGroupByArgs,
+  > = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<QuestionCollectionGroupByOutputType, T['by']> & {
+        [P in keyof T &
+          keyof QuestionCollectionGroupByOutputType]: P extends '_count'
+          ? T[P] extends boolean
+            ? number
+            : GetScalarType<T[P], QuestionCollectionGroupByOutputType[P]>
+          : GetScalarType<T[P], QuestionCollectionGroupByOutputType[P]>;
+      }
+    >
+  >;
+
+  export type QuestionCollectionSelect<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetSelect<
+    {
+      id?: boolean;
+      questionId?: boolean;
+      collectionId?: boolean;
+      createdAt?: boolean;
+      question?: boolean | QuestionDefaultArgs<ExtArgs>;
+      collection?: boolean | CollectionDefaultArgs<ExtArgs>;
+    },
+    ExtArgs['result']['questionCollection']
+  >;
+
+  export type QuestionCollectionSelectScalar = {
+    id?: boolean;
+    questionId?: boolean;
+    collectionId?: boolean;
+    createdAt?: boolean;
+  };
+
+  export type QuestionCollectionOmit<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = $Extensions.GetOmit<
+    'id' | 'questionId' | 'collectionId' | 'createdAt',
+    ExtArgs['result']['questionCollection']
+  >;
+  export type QuestionCollectionInclude<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    question?: boolean | QuestionDefaultArgs<ExtArgs>;
+    collection?: boolean | CollectionDefaultArgs<ExtArgs>;
+  };
+
+  export type $QuestionCollectionPayload<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    name: 'QuestionCollection';
+    objects: {
+      question: Prisma.$QuestionPayload<ExtArgs>;
+      collection: Prisma.$CollectionPayload<ExtArgs>;
+    };
+    scalars: $Extensions.GetPayloadResult<
+      {
+        id: string;
+        questionId: string;
+        collectionId: string;
+        createdAt: Date;
+      },
+      ExtArgs['result']['questionCollection']
+    >;
+    composites: {};
+  };
+
+  type QuestionCollectionGetPayload<
+    S extends boolean | null | undefined | QuestionCollectionDefaultArgs,
+  > = $Result.GetResult<Prisma.$QuestionCollectionPayload, S>;
+
+  type QuestionCollectionCountArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = Omit<
+    QuestionCollectionFindManyArgs,
+    'select' | 'include' | 'distinct' | 'omit'
+  > & {
+    select?: QuestionCollectionCountAggregateInputType | true;
+  };
+
+  export interface QuestionCollectionDelegate<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > {
+    [K: symbol]: {
+      types: Prisma.TypeMap<ExtArgs>['model']['QuestionCollection'];
+      meta: { name: 'QuestionCollection' };
+    };
+    /**
+     * Find zero or one QuestionCollection that matches the filter.
+     * @param {QuestionCollectionFindUniqueArgs} args - Arguments to find a QuestionCollection
+     * @example
+     * // Get one QuestionCollection
+     * const questionCollection = await prisma.questionCollection.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends QuestionCollectionFindUniqueArgs>(
+      args: SelectSubset<T, QuestionCollectionFindUniqueArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'findUnique',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find one QuestionCollection that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {QuestionCollectionFindUniqueOrThrowArgs} args - Arguments to find a QuestionCollection
+     * @example
+     * // Get one QuestionCollection
+     * const questionCollection = await prisma.questionCollection.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends QuestionCollectionFindUniqueOrThrowArgs>(
+      args: SelectSubset<T, QuestionCollectionFindUniqueOrThrowArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'findUniqueOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first QuestionCollection that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionFindFirstArgs} args - Arguments to find a QuestionCollection
+     * @example
+     * // Get one QuestionCollection
+     * const questionCollection = await prisma.questionCollection.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends QuestionCollectionFindFirstArgs>(
+      args?: SelectSubset<T, QuestionCollectionFindFirstArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'findFirst',
+        GlobalOmitOptions
+      > | null,
+      null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find the first QuestionCollection that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionFindFirstOrThrowArgs} args - Arguments to find a QuestionCollection
+     * @example
+     * // Get one QuestionCollection
+     * const questionCollection = await prisma.questionCollection.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends QuestionCollectionFindFirstOrThrowArgs>(
+      args?: SelectSubset<T, QuestionCollectionFindFirstOrThrowArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'findFirstOrThrow',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more QuestionCollections that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all QuestionCollections
+     * const questionCollections = await prisma.questionCollection.findMany()
+     *
+     * // Get first 10 QuestionCollections
+     * const questionCollections = await prisma.questionCollection.findMany({ take: 10 })
+     *
+     * // Only select the `id`
+     * const questionCollectionWithIdOnly = await prisma.questionCollection.findMany({ select: { id: true } })
+     *
+     */
+    findMany<T extends QuestionCollectionFindManyArgs>(
+      args?: SelectSubset<T, QuestionCollectionFindManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'findMany',
+        GlobalOmitOptions
+      >
+    >;
+
+    /**
+     * Create a QuestionCollection.
+     * @param {QuestionCollectionCreateArgs} args - Arguments to create a QuestionCollection.
+     * @example
+     * // Create one QuestionCollection
+     * const QuestionCollection = await prisma.questionCollection.create({
+     *   data: {
+     *     // ... data to create a QuestionCollection
+     *   }
+     * })
+     *
+     */
+    create<T extends QuestionCollectionCreateArgs>(
+      args: SelectSubset<T, QuestionCollectionCreateArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'create',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Create many QuestionCollections.
+     * @param {QuestionCollectionCreateManyArgs} args - Arguments to create many QuestionCollections.
+     * @example
+     * // Create many QuestionCollections
+     * const questionCollection = await prisma.questionCollection.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *
+     */
+    createMany<T extends QuestionCollectionCreateManyArgs>(
+      args?: SelectSubset<T, QuestionCollectionCreateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Delete a QuestionCollection.
+     * @param {QuestionCollectionDeleteArgs} args - Arguments to delete one QuestionCollection.
+     * @example
+     * // Delete one QuestionCollection
+     * const QuestionCollection = await prisma.questionCollection.delete({
+     *   where: {
+     *     // ... filter to delete one QuestionCollection
+     *   }
+     * })
+     *
+     */
+    delete<T extends QuestionCollectionDeleteArgs>(
+      args: SelectSubset<T, QuestionCollectionDeleteArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'delete',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Update one QuestionCollection.
+     * @param {QuestionCollectionUpdateArgs} args - Arguments to update one QuestionCollection.
+     * @example
+     * // Update one QuestionCollection
+     * const questionCollection = await prisma.questionCollection.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    update<T extends QuestionCollectionUpdateArgs>(
+      args: SelectSubset<T, QuestionCollectionUpdateArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'update',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Delete zero or more QuestionCollections.
+     * @param {QuestionCollectionDeleteManyArgs} args - Arguments to filter QuestionCollections to delete.
+     * @example
+     * // Delete a few QuestionCollections
+     * const { count } = await prisma.questionCollection.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     *
+     */
+    deleteMany<T extends QuestionCollectionDeleteManyArgs>(
+      args?: SelectSubset<T, QuestionCollectionDeleteManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Update zero or more QuestionCollections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many QuestionCollections
+     * const questionCollection = await prisma.questionCollection.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     *
+     */
+    updateMany<T extends QuestionCollectionUpdateManyArgs>(
+      args: SelectSubset<T, QuestionCollectionUpdateManyArgs<ExtArgs>>,
+    ): Prisma.PrismaPromise<BatchPayload>;
+
+    /**
+     * Create or update one QuestionCollection.
+     * @param {QuestionCollectionUpsertArgs} args - Arguments to update or create a QuestionCollection.
+     * @example
+     * // Update or create a QuestionCollection
+     * const questionCollection = await prisma.questionCollection.upsert({
+     *   create: {
+     *     // ... data to create a QuestionCollection
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the QuestionCollection we want to update
+     *   }
+     * })
+     */
+    upsert<T extends QuestionCollectionUpsertArgs>(
+      args: SelectSubset<T, QuestionCollectionUpsertArgs<ExtArgs>>,
+    ): Prisma__QuestionCollectionClient<
+      $Result.GetResult<
+        Prisma.$QuestionCollectionPayload<ExtArgs>,
+        T,
+        'upsert',
+        GlobalOmitOptions
+      >,
+      never,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+
+    /**
+     * Find zero or more QuestionCollections that matches the filter.
+     * @param {QuestionCollectionFindRawArgs} args - Select which filters you would like to apply.
+     * @example
+     * const questionCollection = await prisma.questionCollection.findRaw({
+     *   filter: { age: { $gt: 25 } }
+     * })
+     */
+    findRaw(
+      args?: QuestionCollectionFindRawArgs,
+    ): Prisma.PrismaPromise<JsonObject>;
+
+    /**
+     * Perform aggregation operations on a QuestionCollection.
+     * @param {QuestionCollectionAggregateRawArgs} args - Select which aggregations you would like to apply.
+     * @example
+     * const questionCollection = await prisma.questionCollection.aggregateRaw({
+     *   pipeline: [
+     *     { $match: { status: "registered" } },
+     *     { $group: { _id: "$country", total: { $sum: 1 } } }
+     *   ]
+     * })
+     */
+    aggregateRaw(
+      args?: QuestionCollectionAggregateRawArgs,
+    ): Prisma.PrismaPromise<JsonObject>;
+
+    /**
+     * Count the number of QuestionCollections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionCountArgs} args - Arguments to filter QuestionCollections to count.
+     * @example
+     * // Count the number of QuestionCollections
+     * const count = await prisma.questionCollection.count({
+     *   where: {
+     *     // ... the filter for the QuestionCollections we want to count
+     *   }
+     * })
+     **/
+    count<T extends QuestionCollectionCountArgs>(
+      args?: Subset<T, QuestionCollectionCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<
+              T['select'],
+              QuestionCollectionCountAggregateOutputType
+            >
+        : number
+    >;
+
+    /**
+     * Allows you to perform aggregations operations on a QuestionCollection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+     **/
+    aggregate<T extends QuestionCollectionAggregateArgs>(
+      args: Subset<T, QuestionCollectionAggregateArgs>,
+    ): Prisma.PrismaPromise<GetQuestionCollectionAggregateType<T>>;
+
+    /**
+     * Group by QuestionCollection.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {QuestionCollectionGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     *
+     **/
+    groupBy<
+      T extends QuestionCollectionGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: QuestionCollectionGroupByArgs['orderBy'] }
+        : { orderBy?: QuestionCollectionGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<
+        Keys<MaybeTupleToUnion<T['orderBy']>>
+      >,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+        ? `Error: "by" must not be empty.`
+        : HavingValid extends False
+          ? {
+              [P in HavingFields]: P extends ByFields
+                ? never
+                : P extends string
+                  ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+                  : [
+                      Error,
+                      'Field ',
+                      P,
+                      ` in "having" needs to be provided in "by"`,
+                    ];
+            }[HavingFields]
+          : 'take' extends Keys<T>
+            ? 'orderBy' extends Keys<T>
+              ? ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields]
+              : 'Error: If you provide "take", you also need to provide "orderBy"'
+            : 'skip' extends Keys<T>
+              ? 'orderBy' extends Keys<T>
+                ? ByValid extends True
+                  ? {}
+                  : {
+                      [P in OrderFields]: P extends ByFields
+                        ? never
+                        : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                    }[OrderFields]
+                : 'Error: If you provide "skip", you also need to provide "orderBy"'
+              : ByValid extends True
+                ? {}
+                : {
+                    [P in OrderFields]: P extends ByFields
+                      ? never
+                      : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`;
+                  }[OrderFields],
+    >(
+      args: SubsetIntersection<T, QuestionCollectionGroupByArgs, OrderByArg> &
+        InputErrors,
+    ): {} extends InputErrors
+      ? GetQuestionCollectionGroupByPayload<T>
+      : Prisma.PrismaPromise<InputErrors>;
+    /**
+     * Fields of the QuestionCollection model
+     */
+    readonly fields: QuestionCollectionFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for QuestionCollection.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__QuestionCollectionClient<
+    T,
+    Null = never,
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+    GlobalOmitOptions = {},
+  > extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: 'PrismaPromise';
+    question<T extends QuestionDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, QuestionDefaultArgs<ExtArgs>>,
+    ): Prisma__QuestionClient<
+      | $Result.GetResult<
+          Prisma.$QuestionPayload<ExtArgs>,
+          T,
+          'findUniqueOrThrow',
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    collection<T extends CollectionDefaultArgs<ExtArgs> = {}>(
+      args?: Subset<T, CollectionDefaultArgs<ExtArgs>>,
+    ): Prisma__CollectionClient<
+      | $Result.GetResult<
+          Prisma.$CollectionPayload<ExtArgs>,
+          T,
+          'findUniqueOrThrow',
+          GlobalOmitOptions
+        >
+      | Null,
+      Null,
+      ExtArgs,
+      GlobalOmitOptions
+    >;
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(
+      onfulfilled?:
+        | ((value: T) => TResult1 | PromiseLike<TResult1>)
+        | undefined
+        | null,
+      onrejected?:
+        | ((reason: any) => TResult2 | PromiseLike<TResult2>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<TResult1 | TResult2>;
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(
+      onrejected?:
+        | ((reason: any) => TResult | PromiseLike<TResult>)
+        | undefined
+        | null,
+    ): $Utils.JsPromise<T | TResult>;
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
+  }
+
+  /**
+   * Fields of the QuestionCollection model
+   */
+  interface QuestionCollectionFieldRefs {
+    readonly id: FieldRef<'QuestionCollection', 'String'>;
+    readonly questionId: FieldRef<'QuestionCollection', 'String'>;
+    readonly collectionId: FieldRef<'QuestionCollection', 'String'>;
+    readonly createdAt: FieldRef<'QuestionCollection', 'DateTime'>;
+  }
+
+  // Custom InputTypes
+  /**
+   * QuestionCollection findUnique
+   */
+  export type QuestionCollectionFindUniqueArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter, which QuestionCollection to fetch.
+     */
+    where: QuestionCollectionWhereUniqueInput;
+  };
+
+  /**
+   * QuestionCollection findUniqueOrThrow
+   */
+  export type QuestionCollectionFindUniqueOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter, which QuestionCollection to fetch.
+     */
+    where: QuestionCollectionWhereUniqueInput;
+  };
+
+  /**
+   * QuestionCollection findFirst
+   */
+  export type QuestionCollectionFindFirstArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter, which QuestionCollection to fetch.
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of QuestionCollections to fetch.
+     */
+    orderBy?:
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for QuestionCollections.
+     */
+    cursor?: QuestionCollectionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` QuestionCollections from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` QuestionCollections.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of QuestionCollections.
+     */
+    distinct?:
+      | QuestionCollectionScalarFieldEnum
+      | QuestionCollectionScalarFieldEnum[];
+  };
+
+  /**
+   * QuestionCollection findFirstOrThrow
+   */
+  export type QuestionCollectionFindFirstOrThrowArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter, which QuestionCollection to fetch.
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of QuestionCollections to fetch.
+     */
+    orderBy?:
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for searching for QuestionCollections.
+     */
+    cursor?: QuestionCollectionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` QuestionCollections from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` QuestionCollections.
+     */
+    skip?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     *
+     * Filter by unique combinations of QuestionCollections.
+     */
+    distinct?:
+      | QuestionCollectionScalarFieldEnum
+      | QuestionCollectionScalarFieldEnum[];
+  };
+
+  /**
+   * QuestionCollection findMany
+   */
+  export type QuestionCollectionFindManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter, which QuestionCollections to fetch.
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     *
+     * Determine the order of QuestionCollections to fetch.
+     */
+    orderBy?:
+      | QuestionCollectionOrderByWithRelationInput
+      | QuestionCollectionOrderByWithRelationInput[];
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     *
+     * Sets the position for listing QuestionCollections.
+     */
+    cursor?: QuestionCollectionWhereUniqueInput;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Take `±n` QuestionCollections from the position of the cursor.
+     */
+    take?: number;
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     *
+     * Skip the first `n` QuestionCollections.
+     */
+    skip?: number;
+    distinct?:
+      | QuestionCollectionScalarFieldEnum
+      | QuestionCollectionScalarFieldEnum[];
+  };
+
+  /**
+   * QuestionCollection create
+   */
+  export type QuestionCollectionCreateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * The data needed to create a QuestionCollection.
+     */
+    data: XOR<
+      QuestionCollectionCreateInput,
+      QuestionCollectionUncheckedCreateInput
+    >;
+  };
+
+  /**
+   * QuestionCollection createMany
+   */
+  export type QuestionCollectionCreateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to create many QuestionCollections.
+     */
+    data:
+      | QuestionCollectionCreateManyInput
+      | QuestionCollectionCreateManyInput[];
+  };
+
+  /**
+   * QuestionCollection update
+   */
+  export type QuestionCollectionUpdateArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * The data needed to update a QuestionCollection.
+     */
+    data: XOR<
+      QuestionCollectionUpdateInput,
+      QuestionCollectionUncheckedUpdateInput
+    >;
+    /**
+     * Choose, which QuestionCollection to update.
+     */
+    where: QuestionCollectionWhereUniqueInput;
+  };
+
+  /**
+   * QuestionCollection updateMany
+   */
+  export type QuestionCollectionUpdateManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The data used to update QuestionCollections.
+     */
+    data: XOR<
+      QuestionCollectionUpdateManyMutationInput,
+      QuestionCollectionUncheckedUpdateManyInput
+    >;
+    /**
+     * Filter which QuestionCollections to update
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * Limit how many QuestionCollections to update.
+     */
+    limit?: number;
+  };
+
+  /**
+   * QuestionCollection upsert
+   */
+  export type QuestionCollectionUpsertArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * The filter to search for the QuestionCollection to update in case it exists.
+     */
+    where: QuestionCollectionWhereUniqueInput;
+    /**
+     * In case the QuestionCollection found by the `where` argument doesn't exist, create a new QuestionCollection with this data.
+     */
+    create: XOR<
+      QuestionCollectionCreateInput,
+      QuestionCollectionUncheckedCreateInput
+    >;
+    /**
+     * In case the QuestionCollection was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<
+      QuestionCollectionUpdateInput,
+      QuestionCollectionUncheckedUpdateInput
+    >;
+  };
+
+  /**
+   * QuestionCollection delete
+   */
+  export type QuestionCollectionDeleteArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
+    /**
+     * Filter which QuestionCollection to delete.
+     */
+    where: QuestionCollectionWhereUniqueInput;
+  };
+
+  /**
+   * QuestionCollection deleteMany
+   */
+  export type QuestionCollectionDeleteManyArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Filter which QuestionCollections to delete
+     */
+    where?: QuestionCollectionWhereInput;
+    /**
+     * Limit how many QuestionCollections to delete.
+     */
+    limit?: number;
+  };
+
+  /**
+   * QuestionCollection findRaw
+   */
+  export type QuestionCollectionFindRawArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * The query predicate filter. If unspecified, then all documents in the collection will match the predicate. ${@link https://docs.mongodb.com/manual/reference/operator/query MongoDB Docs}.
+     */
+    filter?: InputJsonValue;
+    /**
+     * Additional options to pass to the `find` command ${@link https://docs.mongodb.com/manual/reference/command/find/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue;
+  };
+
+  /**
+   * QuestionCollection aggregateRaw
+   */
+  export type QuestionCollectionAggregateRawArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * An array of aggregation stages to process and transform the document stream via the aggregation pipeline. ${@link https://docs.mongodb.com/manual/reference/operator/aggregation-pipeline MongoDB Docs}.
+     */
+    pipeline?: InputJsonValue[];
+    /**
+     * Additional options to pass to the `aggregate` command ${@link https://docs.mongodb.com/manual/reference/command/aggregate/#command-fields MongoDB Docs}.
+     */
+    options?: InputJsonValue;
+  };
+
+  /**
+   * QuestionCollection without action
+   */
+  export type QuestionCollectionDefaultArgs<
+    ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs,
+  > = {
+    /**
+     * Select specific fields to fetch from the QuestionCollection
+     */
+    select?: QuestionCollectionSelect<ExtArgs> | null;
+    /**
+     * Omit specific fields from the QuestionCollection
+     */
+    omit?: QuestionCollectionOmit<ExtArgs> | null;
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: QuestionCollectionInclude<ExtArgs> | null;
   };
 
   /**
@@ -12066,7 +13362,6 @@ export namespace Prisma {
     summary: 'summary';
     description: 'description';
     views: 'views';
-    answersCount: 'answersCount';
     createdAt: 'createdAt';
   };
 
@@ -12076,7 +13371,6 @@ export namespace Prisma {
   export const TagScalarFieldEnum: {
     id: 'id';
     name: 'name';
-    questionsCount: 'questionsCount';
     createdAt: 'createdAt';
   };
 
@@ -12119,11 +13413,21 @@ export namespace Prisma {
   export const CollectionScalarFieldEnum: {
     id: 'id';
     userId: 'userId';
-    questionId: 'questionId';
+    createdAt: 'createdAt';
   };
 
   export type CollectionScalarFieldEnum =
     (typeof CollectionScalarFieldEnum)[keyof typeof CollectionScalarFieldEnum];
+
+  export const QuestionCollectionScalarFieldEnum: {
+    id: 'id';
+    questionId: 'questionId';
+    collectionId: 'collectionId';
+    createdAt: 'createdAt';
+  };
+
+  export type QuestionCollectionScalarFieldEnum =
+    (typeof QuestionCollectionScalarFieldEnum)[keyof typeof QuestionCollectionScalarFieldEnum];
 
   export const SortOrder: {
     asc: 'asc';
@@ -12259,7 +13563,10 @@ export namespace Prisma {
     questions?: QuestionListRelationFilter;
     answers?: AnswerListRelationFilter;
     votes?: VoteListRelationFilter;
-    Collection?: CollectionListRelationFilter;
+    collection?: XOR<
+      CollectionNullableScalarRelationFilter,
+      CollectionWhereInput
+    > | null;
   };
 
   export type UserOrderByWithRelationInput = {
@@ -12275,7 +13582,7 @@ export namespace Prisma {
     questions?: QuestionOrderByRelationAggregateInput;
     answers?: AnswerOrderByRelationAggregateInput;
     votes?: VoteOrderByRelationAggregateInput;
-    Collection?: CollectionOrderByRelationAggregateInput;
+    collection?: CollectionOrderByWithRelationInput;
   };
 
   export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -12295,7 +13602,10 @@ export namespace Prisma {
       questions?: QuestionListRelationFilter;
       answers?: AnswerListRelationFilter;
       votes?: VoteListRelationFilter;
-      Collection?: CollectionListRelationFilter;
+      collection?: XOR<
+        CollectionNullableScalarRelationFilter,
+        CollectionWhereInput
+      > | null;
     },
     'id' | 'email'
   >;
@@ -12420,13 +13730,12 @@ export namespace Prisma {
     summary?: StringFilter<'Question'> | string;
     description?: StringFilter<'Question'> | string;
     views?: IntFilter<'Question'> | number;
-    answersCount?: IntFilter<'Question'> | number;
     createdAt?: DateTimeFilter<'Question'> | Date | string;
     author?: XOR<UserScalarRelationFilter, UserWhereInput>;
     answers?: AnswerListRelationFilter;
     tags?: QuestionTagListRelationFilter;
     votes?: VoteListRelationFilter;
-    Collection?: CollectionListRelationFilter;
+    collections?: QuestionCollectionListRelationFilter;
   };
 
   export type QuestionOrderByWithRelationInput = {
@@ -12435,13 +13744,12 @@ export namespace Prisma {
     summary?: SortOrder;
     description?: SortOrder;
     views?: SortOrder;
-    answersCount?: SortOrder;
     createdAt?: SortOrder;
     author?: UserOrderByWithRelationInput;
     answers?: AnswerOrderByRelationAggregateInput;
     tags?: QuestionTagOrderByRelationAggregateInput;
     votes?: VoteOrderByRelationAggregateInput;
-    Collection?: CollectionOrderByRelationAggregateInput;
+    collections?: QuestionCollectionOrderByRelationAggregateInput;
   };
 
   export type QuestionWhereUniqueInput = Prisma.AtLeast<
@@ -12454,13 +13762,12 @@ export namespace Prisma {
       summary?: StringFilter<'Question'> | string;
       description?: StringFilter<'Question'> | string;
       views?: IntFilter<'Question'> | number;
-      answersCount?: IntFilter<'Question'> | number;
       createdAt?: DateTimeFilter<'Question'> | Date | string;
       author?: XOR<UserScalarRelationFilter, UserWhereInput>;
       answers?: AnswerListRelationFilter;
       tags?: QuestionTagListRelationFilter;
       votes?: VoteListRelationFilter;
-      Collection?: CollectionListRelationFilter;
+      collections?: QuestionCollectionListRelationFilter;
     },
     'id'
   >;
@@ -12471,7 +13778,6 @@ export namespace Prisma {
     summary?: SortOrder;
     description?: SortOrder;
     views?: SortOrder;
-    answersCount?: SortOrder;
     createdAt?: SortOrder;
     _count?: QuestionCountOrderByAggregateInput;
     _avg?: QuestionAvgOrderByAggregateInput;
@@ -12493,7 +13799,6 @@ export namespace Prisma {
     summary?: StringWithAggregatesFilter<'Question'> | string;
     description?: StringWithAggregatesFilter<'Question'> | string;
     views?: IntWithAggregatesFilter<'Question'> | number;
-    answersCount?: IntWithAggregatesFilter<'Question'> | number;
     createdAt?: DateTimeWithAggregatesFilter<'Question'> | Date | string;
   };
 
@@ -12503,7 +13808,6 @@ export namespace Prisma {
     NOT?: TagWhereInput | TagWhereInput[];
     id?: StringFilter<'Tag'> | string;
     name?: StringFilter<'Tag'> | string;
-    questionsCount?: IntFilter<'Tag'> | number;
     createdAt?: DateTimeFilter<'Tag'> | Date | string;
     questions?: QuestionTagListRelationFilter;
   };
@@ -12511,7 +13815,6 @@ export namespace Prisma {
   export type TagOrderByWithRelationInput = {
     id?: SortOrder;
     name?: SortOrder;
-    questionsCount?: SortOrder;
     createdAt?: SortOrder;
     questions?: QuestionTagOrderByRelationAggregateInput;
   };
@@ -12523,7 +13826,6 @@ export namespace Prisma {
       OR?: TagWhereInput[];
       NOT?: TagWhereInput | TagWhereInput[];
       name?: StringFilter<'Tag'> | string;
-      questionsCount?: IntFilter<'Tag'> | number;
       createdAt?: DateTimeFilter<'Tag'> | Date | string;
       questions?: QuestionTagListRelationFilter;
     },
@@ -12533,13 +13835,10 @@ export namespace Prisma {
   export type TagOrderByWithAggregationInput = {
     id?: SortOrder;
     name?: SortOrder;
-    questionsCount?: SortOrder;
     createdAt?: SortOrder;
     _count?: TagCountOrderByAggregateInput;
-    _avg?: TagAvgOrderByAggregateInput;
     _max?: TagMaxOrderByAggregateInput;
     _min?: TagMinOrderByAggregateInput;
-    _sum?: TagSumOrderByAggregateInput;
   };
 
   export type TagScalarWhereWithAggregatesInput = {
@@ -12552,7 +13851,6 @@ export namespace Prisma {
       | TagScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<'Tag'> | string;
     name?: StringWithAggregatesFilter<'Tag'> | string;
-    questionsCount?: IntWithAggregatesFilter<'Tag'> | number;
     createdAt?: DateTimeWithAggregatesFilter<'Tag'> | Date | string;
   };
 
@@ -12580,6 +13878,7 @@ export namespace Prisma {
   export type QuestionTagWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
+      questionId_tagId?: QuestionTagQuestionIdTagIdCompoundUniqueInput;
       AND?: QuestionTagWhereInput | QuestionTagWhereInput[];
       OR?: QuestionTagWhereInput[];
       NOT?: QuestionTagWhereInput | QuestionTagWhereInput[];
@@ -12589,7 +13888,7 @@ export namespace Prisma {
       question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>;
       tag?: XOR<TagScalarRelationFilter, TagWhereInput>;
     },
-    'id'
+    'id' | 'questionId_tagId'
   >;
 
   export type QuestionTagOrderByWithAggregationInput = {
@@ -12771,43 +14070,37 @@ export namespace Prisma {
     NOT?: CollectionWhereInput | CollectionWhereInput[];
     id?: StringFilter<'Collection'> | string;
     userId?: StringFilter<'Collection'> | string;
-    questionId?: StringNullableFilter<'Collection'> | string | null;
+    createdAt?: DateTimeFilter<'Collection'> | Date | string;
     user?: XOR<UserScalarRelationFilter, UserWhereInput>;
-    question?: XOR<
-      QuestionNullableScalarRelationFilter,
-      QuestionWhereInput
-    > | null;
+    questions?: QuestionCollectionListRelationFilter;
   };
 
   export type CollectionOrderByWithRelationInput = {
     id?: SortOrder;
     userId?: SortOrder;
-    questionId?: SortOrder;
+    createdAt?: SortOrder;
     user?: UserOrderByWithRelationInput;
-    question?: QuestionOrderByWithRelationInput;
+    questions?: QuestionCollectionOrderByRelationAggregateInput;
   };
 
   export type CollectionWhereUniqueInput = Prisma.AtLeast<
     {
       id?: string;
+      userId?: string;
       AND?: CollectionWhereInput | CollectionWhereInput[];
       OR?: CollectionWhereInput[];
       NOT?: CollectionWhereInput | CollectionWhereInput[];
-      userId?: StringFilter<'Collection'> | string;
-      questionId?: StringNullableFilter<'Collection'> | string | null;
+      createdAt?: DateTimeFilter<'Collection'> | Date | string;
       user?: XOR<UserScalarRelationFilter, UserWhereInput>;
-      question?: XOR<
-        QuestionNullableScalarRelationFilter,
-        QuestionWhereInput
-      > | null;
+      questions?: QuestionCollectionListRelationFilter;
     },
-    'id'
+    'id' | 'userId'
   >;
 
   export type CollectionOrderByWithAggregationInput = {
     id?: SortOrder;
     userId?: SortOrder;
-    questionId?: SortOrder;
+    createdAt?: SortOrder;
     _count?: CollectionCountOrderByAggregateInput;
     _max?: CollectionMaxOrderByAggregateInput;
     _min?: CollectionMinOrderByAggregateInput;
@@ -12823,10 +14116,71 @@ export namespace Prisma {
       | CollectionScalarWhereWithAggregatesInput[];
     id?: StringWithAggregatesFilter<'Collection'> | string;
     userId?: StringWithAggregatesFilter<'Collection'> | string;
-    questionId?:
-      | StringNullableWithAggregatesFilter<'Collection'>
-      | string
-      | null;
+    createdAt?: DateTimeWithAggregatesFilter<'Collection'> | Date | string;
+  };
+
+  export type QuestionCollectionWhereInput = {
+    AND?: QuestionCollectionWhereInput | QuestionCollectionWhereInput[];
+    OR?: QuestionCollectionWhereInput[];
+    NOT?: QuestionCollectionWhereInput | QuestionCollectionWhereInput[];
+    id?: StringFilter<'QuestionCollection'> | string;
+    questionId?: StringFilter<'QuestionCollection'> | string;
+    collectionId?: StringFilter<'QuestionCollection'> | string;
+    createdAt?: DateTimeFilter<'QuestionCollection'> | Date | string;
+    question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>;
+    collection?: XOR<CollectionScalarRelationFilter, CollectionWhereInput>;
+  };
+
+  export type QuestionCollectionOrderByWithRelationInput = {
+    id?: SortOrder;
+    questionId?: SortOrder;
+    collectionId?: SortOrder;
+    createdAt?: SortOrder;
+    question?: QuestionOrderByWithRelationInput;
+    collection?: CollectionOrderByWithRelationInput;
+  };
+
+  export type QuestionCollectionWhereUniqueInput = Prisma.AtLeast<
+    {
+      id?: string;
+      questionId_collectionId?: QuestionCollectionQuestionIdCollectionIdCompoundUniqueInput;
+      AND?: QuestionCollectionWhereInput | QuestionCollectionWhereInput[];
+      OR?: QuestionCollectionWhereInput[];
+      NOT?: QuestionCollectionWhereInput | QuestionCollectionWhereInput[];
+      questionId?: StringFilter<'QuestionCollection'> | string;
+      collectionId?: StringFilter<'QuestionCollection'> | string;
+      createdAt?: DateTimeFilter<'QuestionCollection'> | Date | string;
+      question?: XOR<QuestionScalarRelationFilter, QuestionWhereInput>;
+      collection?: XOR<CollectionScalarRelationFilter, CollectionWhereInput>;
+    },
+    'id' | 'questionId_collectionId'
+  >;
+
+  export type QuestionCollectionOrderByWithAggregationInput = {
+    id?: SortOrder;
+    questionId?: SortOrder;
+    collectionId?: SortOrder;
+    createdAt?: SortOrder;
+    _count?: QuestionCollectionCountOrderByAggregateInput;
+    _max?: QuestionCollectionMaxOrderByAggregateInput;
+    _min?: QuestionCollectionMinOrderByAggregateInput;
+  };
+
+  export type QuestionCollectionScalarWhereWithAggregatesInput = {
+    AND?:
+      | QuestionCollectionScalarWhereWithAggregatesInput
+      | QuestionCollectionScalarWhereWithAggregatesInput[];
+    OR?: QuestionCollectionScalarWhereWithAggregatesInput[];
+    NOT?:
+      | QuestionCollectionScalarWhereWithAggregatesInput
+      | QuestionCollectionScalarWhereWithAggregatesInput[];
+    id?: StringWithAggregatesFilter<'QuestionCollection'> | string;
+    questionId?: StringWithAggregatesFilter<'QuestionCollection'> | string;
+    collectionId?: StringWithAggregatesFilter<'QuestionCollection'> | string;
+    createdAt?:
+      | DateTimeWithAggregatesFilter<'QuestionCollection'>
+      | Date
+      | string;
   };
 
   export type UserCreateInput = {
@@ -12842,7 +14196,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutAuthorInput;
     answers?: AnswerCreateNestedManyWithoutAuthorInput;
     votes?: VoteCreateNestedManyWithoutUserInput;
-    Collection?: CollectionCreateNestedManyWithoutUserInput;
+    collection?: CollectionCreateNestedOneWithoutUserInput;
   };
 
   export type UserUncheckedCreateInput = {
@@ -12858,7 +14212,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutAuthorInput;
     answers?: AnswerUncheckedCreateNestedManyWithoutAuthorInput;
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutUserInput;
+    collection?: CollectionUncheckedCreateNestedOneWithoutUserInput;
   };
 
   export type UserUpdateInput = {
@@ -12873,7 +14227,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUpdateOneWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateInput = {
@@ -12888,7 +14242,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUncheckedUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUncheckedUpdateOneWithoutUserNestedInput;
   };
 
   export type UserCreateManyInput = {
@@ -12999,13 +14353,12 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     author: UserCreateNestedOneWithoutQuestionsInput;
     answers?: AnswerCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
     votes?: VoteCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUncheckedCreateInput = {
@@ -13014,25 +14367,23 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
     votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUpdateInput = {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutQuestionsNestedInput;
     answers?: AnswerUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateInput = {
@@ -13040,12 +14391,11 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUncheckedUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionCreateManyInput = {
@@ -13054,7 +14404,6 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
   };
 
@@ -13062,7 +14411,6 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
@@ -13071,14 +14419,12 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type TagCreateInput = {
     id?: string;
     name: string;
-    questionsCount?: number;
     createdAt?: Date | string;
     questions?: QuestionTagCreateNestedManyWithoutTagInput;
   };
@@ -13086,21 +14432,18 @@ export namespace Prisma {
   export type TagUncheckedCreateInput = {
     id?: string;
     name: string;
-    questionsCount?: number;
     createdAt?: Date | string;
     questions?: QuestionTagUncheckedCreateNestedManyWithoutTagInput;
   };
 
   export type TagUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     questions?: QuestionTagUpdateManyWithoutTagNestedInput;
   };
 
   export type TagUncheckedUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     questions?: QuestionTagUncheckedUpdateManyWithoutTagNestedInput;
   };
@@ -13108,19 +14451,16 @@ export namespace Prisma {
   export type TagCreateManyInput = {
     id?: string;
     name: string;
-    questionsCount?: number;
     createdAt?: Date | string;
   };
 
   export type TagUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type TagUncheckedUpdateManyInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
@@ -13279,37 +14619,86 @@ export namespace Prisma {
 
   export type CollectionCreateInput = {
     id?: string;
+    createdAt?: Date | string;
     user: UserCreateNestedOneWithoutCollectionInput;
-    question?: QuestionCreateNestedOneWithoutCollectionInput;
+    questions?: QuestionCollectionCreateNestedManyWithoutCollectionInput;
   };
 
   export type CollectionUncheckedCreateInput = {
     id?: string;
     userId: string;
-    questionId?: string | null;
+    createdAt?: Date | string;
+    questions?: QuestionCollectionUncheckedCreateNestedManyWithoutCollectionInput;
   };
 
   export type CollectionUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     user?: UserUpdateOneRequiredWithoutCollectionNestedInput;
-    question?: QuestionUpdateOneWithoutCollectionNestedInput;
+    questions?: QuestionCollectionUpdateManyWithoutCollectionNestedInput;
   };
 
   export type CollectionUncheckedUpdateInput = {
     userId?: StringFieldUpdateOperationsInput | string;
-    questionId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    questions?: QuestionCollectionUncheckedUpdateManyWithoutCollectionNestedInput;
   };
 
   export type CollectionCreateManyInput = {
     id?: string;
     userId: string;
-    questionId?: string | null;
+    createdAt?: Date | string;
   };
 
-  export type CollectionUpdateManyMutationInput = {};
+  export type CollectionUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
 
   export type CollectionUncheckedUpdateManyInput = {
     userId?: StringFieldUpdateOperationsInput | string;
-    questionId?: NullableStringFieldUpdateOperationsInput | string | null;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type QuestionCollectionCreateInput = {
+    id?: string;
+    createdAt?: Date | string;
+    question: QuestionCreateNestedOneWithoutCollectionsInput;
+    collection: CollectionCreateNestedOneWithoutQuestionsInput;
+  };
+
+  export type QuestionCollectionUncheckedCreateInput = {
+    id?: string;
+    questionId: string;
+    collectionId: string;
+    createdAt?: Date | string;
+  };
+
+  export type QuestionCollectionUpdateInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    question?: QuestionUpdateOneRequiredWithoutCollectionsNestedInput;
+    collection?: CollectionUpdateOneRequiredWithoutQuestionsNestedInput;
+  };
+
+  export type QuestionCollectionUncheckedUpdateInput = {
+    questionId?: StringFieldUpdateOperationsInput | string;
+    collectionId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type QuestionCollectionCreateManyInput = {
+    id?: string;
+    questionId: string;
+    collectionId: string;
+    createdAt?: Date | string;
+  };
+
+  export type QuestionCollectionUpdateManyMutationInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type QuestionCollectionUncheckedUpdateManyInput = {
+    questionId?: StringFieldUpdateOperationsInput | string;
+    collectionId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type StringFilter<$PrismaModel = never> = {
@@ -13389,10 +14778,9 @@ export namespace Prisma {
     none?: VoteWhereInput;
   };
 
-  export type CollectionListRelationFilter = {
-    every?: CollectionWhereInput;
-    some?: CollectionWhereInput;
-    none?: CollectionWhereInput;
+  export type CollectionNullableScalarRelationFilter = {
+    is?: CollectionWhereInput | null;
+    isNot?: CollectionWhereInput | null;
   };
 
   export type AccountOrderByRelationAggregateInput = {
@@ -13408,10 +14796,6 @@ export namespace Prisma {
   };
 
   export type VoteOrderByRelationAggregateInput = {
-    _count?: SortOrder;
-  };
-
-  export type CollectionOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -13589,7 +14973,17 @@ export namespace Prisma {
     none?: QuestionTagWhereInput;
   };
 
+  export type QuestionCollectionListRelationFilter = {
+    every?: QuestionCollectionWhereInput;
+    some?: QuestionCollectionWhereInput;
+    none?: QuestionCollectionWhereInput;
+  };
+
   export type QuestionTagOrderByRelationAggregateInput = {
+    _count?: SortOrder;
+  };
+
+  export type QuestionCollectionOrderByRelationAggregateInput = {
     _count?: SortOrder;
   };
 
@@ -13599,13 +14993,11 @@ export namespace Prisma {
     summary?: SortOrder;
     description?: SortOrder;
     views?: SortOrder;
-    answersCount?: SortOrder;
     createdAt?: SortOrder;
   };
 
   export type QuestionAvgOrderByAggregateInput = {
     views?: SortOrder;
-    answersCount?: SortOrder;
   };
 
   export type QuestionMaxOrderByAggregateInput = {
@@ -13614,7 +15006,6 @@ export namespace Prisma {
     summary?: SortOrder;
     description?: SortOrder;
     views?: SortOrder;
-    answersCount?: SortOrder;
     createdAt?: SortOrder;
   };
 
@@ -13624,42 +15015,29 @@ export namespace Prisma {
     summary?: SortOrder;
     description?: SortOrder;
     views?: SortOrder;
-    answersCount?: SortOrder;
     createdAt?: SortOrder;
   };
 
   export type QuestionSumOrderByAggregateInput = {
     views?: SortOrder;
-    answersCount?: SortOrder;
   };
 
   export type TagCountOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
-    questionsCount?: SortOrder;
     createdAt?: SortOrder;
-  };
-
-  export type TagAvgOrderByAggregateInput = {
-    questionsCount?: SortOrder;
   };
 
   export type TagMaxOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
-    questionsCount?: SortOrder;
     createdAt?: SortOrder;
   };
 
   export type TagMinOrderByAggregateInput = {
     id?: SortOrder;
     name?: SortOrder;
-    questionsCount?: SortOrder;
     createdAt?: SortOrder;
-  };
-
-  export type TagSumOrderByAggregateInput = {
-    questionsCount?: SortOrder;
   };
 
   export type QuestionScalarRelationFilter = {
@@ -13670,6 +15048,11 @@ export namespace Prisma {
   export type TagScalarRelationFilter = {
     is?: TagWhereInput;
     isNot?: TagWhereInput;
+  };
+
+  export type QuestionTagQuestionIdTagIdCompoundUniqueInput = {
+    questionId: string;
+    tagId: string;
   };
 
   export type QuestionTagCountOrderByAggregateInput = {
@@ -13786,19 +15169,50 @@ export namespace Prisma {
   export type CollectionCountOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
-    questionId?: SortOrder;
+    createdAt?: SortOrder;
   };
 
   export type CollectionMaxOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
-    questionId?: SortOrder;
+    createdAt?: SortOrder;
   };
 
   export type CollectionMinOrderByAggregateInput = {
     id?: SortOrder;
     userId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type CollectionScalarRelationFilter = {
+    is?: CollectionWhereInput;
+    isNot?: CollectionWhereInput;
+  };
+
+  export type QuestionCollectionQuestionIdCollectionIdCompoundUniqueInput = {
+    questionId: string;
+    collectionId: string;
+  };
+
+  export type QuestionCollectionCountOrderByAggregateInput = {
+    id?: SortOrder;
     questionId?: SortOrder;
+    collectionId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type QuestionCollectionMaxOrderByAggregateInput = {
+    id?: SortOrder;
+    questionId?: SortOrder;
+    collectionId?: SortOrder;
+    createdAt?: SortOrder;
+  };
+
+  export type QuestionCollectionMinOrderByAggregateInput = {
+    id?: SortOrder;
+    questionId?: SortOrder;
+    collectionId?: SortOrder;
+    createdAt?: SortOrder;
   };
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -13858,19 +15272,13 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[];
   };
 
-  export type CollectionCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutUserInput,
-          CollectionUncheckedCreateWithoutUserInput
-        >
-      | CollectionCreateWithoutUserInput[]
-      | CollectionUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutUserInput
-      | CollectionCreateOrConnectWithoutUserInput[];
-    createMany?: CollectionCreateManyUserInputEnvelope;
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
+  export type CollectionCreateNestedOneWithoutUserInput = {
+    create?: XOR<
+      CollectionCreateWithoutUserInput,
+      CollectionUncheckedCreateWithoutUserInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput;
+    connect?: CollectionWhereUniqueInput;
   };
 
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
@@ -13930,19 +15338,13 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[];
   };
 
-  export type CollectionUncheckedCreateNestedManyWithoutUserInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutUserInput,
-          CollectionUncheckedCreateWithoutUserInput
-        >
-      | CollectionCreateWithoutUserInput[]
-      | CollectionUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutUserInput
-      | CollectionCreateOrConnectWithoutUserInput[];
-    createMany?: CollectionCreateManyUserInputEnvelope;
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
+  export type CollectionUncheckedCreateNestedOneWithoutUserInput = {
+    create?: XOR<
+      CollectionCreateWithoutUserInput,
+      CollectionUncheckedCreateWithoutUserInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput;
+    connect?: CollectionWhereUniqueInput;
   };
 
   export type StringFieldUpdateOperationsInput = {
@@ -14075,32 +15477,23 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[];
   };
 
-  export type CollectionUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutUserInput,
-          CollectionUncheckedCreateWithoutUserInput
-        >
-      | CollectionCreateWithoutUserInput[]
-      | CollectionUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutUserInput
-      | CollectionCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | CollectionUpsertWithWhereUniqueWithoutUserInput
-      | CollectionUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: CollectionCreateManyUserInputEnvelope;
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    update?:
-      | CollectionUpdateWithWhereUniqueWithoutUserInput
-      | CollectionUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | CollectionUpdateManyWithWhereWithoutUserInput
-      | CollectionUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
+  export type CollectionUpdateOneWithoutUserNestedInput = {
+    create?: XOR<
+      CollectionCreateWithoutUserInput,
+      CollectionUncheckedCreateWithoutUserInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput;
+    upsert?: CollectionUpsertWithoutUserInput;
+    disconnect?: CollectionWhereInput | boolean;
+    delete?: CollectionWhereInput | boolean;
+    connect?: CollectionWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollectionUpdateToOneWithWhereWithoutUserInput,
+        CollectionUpdateWithoutUserInput
+      >,
+      CollectionUncheckedUpdateWithoutUserInput
+    >;
   };
 
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
@@ -14212,32 +15605,23 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[];
   };
 
-  export type CollectionUncheckedUpdateManyWithoutUserNestedInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutUserInput,
-          CollectionUncheckedCreateWithoutUserInput
-        >
-      | CollectionCreateWithoutUserInput[]
-      | CollectionUncheckedCreateWithoutUserInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutUserInput
-      | CollectionCreateOrConnectWithoutUserInput[];
-    upsert?:
-      | CollectionUpsertWithWhereUniqueWithoutUserInput
-      | CollectionUpsertWithWhereUniqueWithoutUserInput[];
-    createMany?: CollectionCreateManyUserInputEnvelope;
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    update?:
-      | CollectionUpdateWithWhereUniqueWithoutUserInput
-      | CollectionUpdateWithWhereUniqueWithoutUserInput[];
-    updateMany?:
-      | CollectionUpdateManyWithWhereWithoutUserInput
-      | CollectionUpdateManyWithWhereWithoutUserInput[];
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
+  export type CollectionUncheckedUpdateOneWithoutUserNestedInput = {
+    create?: XOR<
+      CollectionCreateWithoutUserInput,
+      CollectionUncheckedCreateWithoutUserInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutUserInput;
+    upsert?: CollectionUpsertWithoutUserInput;
+    disconnect?: CollectionWhereInput | boolean;
+    delete?: CollectionWhereInput | boolean;
+    connect?: CollectionWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollectionUpdateToOneWithWhereWithoutUserInput,
+        CollectionUpdateWithoutUserInput
+      >,
+      CollectionUncheckedUpdateWithoutUserInput
+    >;
   };
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -14324,19 +15708,21 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[];
   };
 
-  export type CollectionCreateNestedManyWithoutQuestionInput = {
+  export type QuestionCollectionCreateNestedManyWithoutQuestionInput = {
     create?:
       | XOR<
-          CollectionCreateWithoutQuestionInput,
-          CollectionUncheckedCreateWithoutQuestionInput
+          QuestionCollectionCreateWithoutQuestionInput,
+          QuestionCollectionUncheckedCreateWithoutQuestionInput
         >
-      | CollectionCreateWithoutQuestionInput[]
-      | CollectionUncheckedCreateWithoutQuestionInput[];
+      | QuestionCollectionCreateWithoutQuestionInput[]
+      | QuestionCollectionUncheckedCreateWithoutQuestionInput[];
     connectOrCreate?:
-      | CollectionCreateOrConnectWithoutQuestionInput
-      | CollectionCreateOrConnectWithoutQuestionInput[];
-    createMany?: CollectionCreateManyQuestionInputEnvelope;
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
+      | QuestionCollectionCreateOrConnectWithoutQuestionInput
+      | QuestionCollectionCreateOrConnectWithoutQuestionInput[];
+    createMany?: QuestionCollectionCreateManyQuestionInputEnvelope;
+    connect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
   };
 
   export type AnswerUncheckedCreateNestedManyWithoutQuestionInput = {
@@ -14384,20 +15770,23 @@ export namespace Prisma {
     connect?: VoteWhereUniqueInput | VoteWhereUniqueInput[];
   };
 
-  export type CollectionUncheckedCreateNestedManyWithoutQuestionInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutQuestionInput,
-          CollectionUncheckedCreateWithoutQuestionInput
-        >
-      | CollectionCreateWithoutQuestionInput[]
-      | CollectionUncheckedCreateWithoutQuestionInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutQuestionInput
-      | CollectionCreateOrConnectWithoutQuestionInput[];
-    createMany?: CollectionCreateManyQuestionInputEnvelope;
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-  };
+  export type QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput =
+    {
+      create?:
+        | XOR<
+            QuestionCollectionCreateWithoutQuestionInput,
+            QuestionCollectionUncheckedCreateWithoutQuestionInput
+          >
+        | QuestionCollectionCreateWithoutQuestionInput[]
+        | QuestionCollectionUncheckedCreateWithoutQuestionInput[];
+      connectOrCreate?:
+        | QuestionCollectionCreateOrConnectWithoutQuestionInput
+        | QuestionCollectionCreateOrConnectWithoutQuestionInput[];
+      createMany?: QuestionCollectionCreateManyQuestionInputEnvelope;
+      connect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+    };
 
   export type UserUpdateOneRequiredWithoutQuestionsNestedInput = {
     create?: XOR<
@@ -14500,32 +15889,42 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[];
   };
 
-  export type CollectionUpdateManyWithoutQuestionNestedInput = {
+  export type QuestionCollectionUpdateManyWithoutQuestionNestedInput = {
     create?:
       | XOR<
-          CollectionCreateWithoutQuestionInput,
-          CollectionUncheckedCreateWithoutQuestionInput
+          QuestionCollectionCreateWithoutQuestionInput,
+          QuestionCollectionUncheckedCreateWithoutQuestionInput
         >
-      | CollectionCreateWithoutQuestionInput[]
-      | CollectionUncheckedCreateWithoutQuestionInput[];
+      | QuestionCollectionCreateWithoutQuestionInput[]
+      | QuestionCollectionUncheckedCreateWithoutQuestionInput[];
     connectOrCreate?:
-      | CollectionCreateOrConnectWithoutQuestionInput
-      | CollectionCreateOrConnectWithoutQuestionInput[];
+      | QuestionCollectionCreateOrConnectWithoutQuestionInput
+      | QuestionCollectionCreateOrConnectWithoutQuestionInput[];
     upsert?:
-      | CollectionUpsertWithWhereUniqueWithoutQuestionInput
-      | CollectionUpsertWithWhereUniqueWithoutQuestionInput[];
-    createMany?: CollectionCreateManyQuestionInputEnvelope;
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
+      | QuestionCollectionUpsertWithWhereUniqueWithoutQuestionInput
+      | QuestionCollectionUpsertWithWhereUniqueWithoutQuestionInput[];
+    createMany?: QuestionCollectionCreateManyQuestionInputEnvelope;
+    set?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    disconnect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    delete?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    connect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
     update?:
-      | CollectionUpdateWithWhereUniqueWithoutQuestionInput
-      | CollectionUpdateWithWhereUniqueWithoutQuestionInput[];
+      | QuestionCollectionUpdateWithWhereUniqueWithoutQuestionInput
+      | QuestionCollectionUpdateWithWhereUniqueWithoutQuestionInput[];
     updateMany?:
-      | CollectionUpdateManyWithWhereWithoutQuestionInput
-      | CollectionUpdateManyWithWhereWithoutQuestionInput[];
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
+      | QuestionCollectionUpdateManyWithWhereWithoutQuestionInput
+      | QuestionCollectionUpdateManyWithWhereWithoutQuestionInput[];
+    deleteMany?:
+      | QuestionCollectionScalarWhereInput
+      | QuestionCollectionScalarWhereInput[];
   };
 
   export type AnswerUncheckedUpdateManyWithoutQuestionNestedInput = {
@@ -14612,33 +16011,44 @@ export namespace Prisma {
     deleteMany?: VoteScalarWhereInput | VoteScalarWhereInput[];
   };
 
-  export type CollectionUncheckedUpdateManyWithoutQuestionNestedInput = {
-    create?:
-      | XOR<
-          CollectionCreateWithoutQuestionInput,
-          CollectionUncheckedCreateWithoutQuestionInput
-        >
-      | CollectionCreateWithoutQuestionInput[]
-      | CollectionUncheckedCreateWithoutQuestionInput[];
-    connectOrCreate?:
-      | CollectionCreateOrConnectWithoutQuestionInput
-      | CollectionCreateOrConnectWithoutQuestionInput[];
-    upsert?:
-      | CollectionUpsertWithWhereUniqueWithoutQuestionInput
-      | CollectionUpsertWithWhereUniqueWithoutQuestionInput[];
-    createMany?: CollectionCreateManyQuestionInputEnvelope;
-    set?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    disconnect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    delete?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    connect?: CollectionWhereUniqueInput | CollectionWhereUniqueInput[];
-    update?:
-      | CollectionUpdateWithWhereUniqueWithoutQuestionInput
-      | CollectionUpdateWithWhereUniqueWithoutQuestionInput[];
-    updateMany?:
-      | CollectionUpdateManyWithWhereWithoutQuestionInput
-      | CollectionUpdateManyWithWhereWithoutQuestionInput[];
-    deleteMany?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
-  };
+  export type QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput =
+    {
+      create?:
+        | XOR<
+            QuestionCollectionCreateWithoutQuestionInput,
+            QuestionCollectionUncheckedCreateWithoutQuestionInput
+          >
+        | QuestionCollectionCreateWithoutQuestionInput[]
+        | QuestionCollectionUncheckedCreateWithoutQuestionInput[];
+      connectOrCreate?:
+        | QuestionCollectionCreateOrConnectWithoutQuestionInput
+        | QuestionCollectionCreateOrConnectWithoutQuestionInput[];
+      upsert?:
+        | QuestionCollectionUpsertWithWhereUniqueWithoutQuestionInput
+        | QuestionCollectionUpsertWithWhereUniqueWithoutQuestionInput[];
+      createMany?: QuestionCollectionCreateManyQuestionInputEnvelope;
+      set?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      disconnect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      delete?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      connect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      update?:
+        | QuestionCollectionUpdateWithWhereUniqueWithoutQuestionInput
+        | QuestionCollectionUpdateWithWhereUniqueWithoutQuestionInput[];
+      updateMany?:
+        | QuestionCollectionUpdateManyWithWhereWithoutQuestionInput
+        | QuestionCollectionUpdateManyWithWhereWithoutQuestionInput[];
+      deleteMany?:
+        | QuestionCollectionScalarWhereInput
+        | QuestionCollectionScalarWhereInput[];
+    };
 
   export type QuestionTagCreateNestedManyWithoutTagInput = {
     create?:
@@ -14999,14 +16409,40 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput;
   };
 
-  export type QuestionCreateNestedOneWithoutCollectionInput = {
-    create?: XOR<
-      QuestionCreateWithoutCollectionInput,
-      QuestionUncheckedCreateWithoutCollectionInput
-    >;
-    connectOrCreate?: QuestionCreateOrConnectWithoutCollectionInput;
-    connect?: QuestionWhereUniqueInput;
+  export type QuestionCollectionCreateNestedManyWithoutCollectionInput = {
+    create?:
+      | XOR<
+          QuestionCollectionCreateWithoutCollectionInput,
+          QuestionCollectionUncheckedCreateWithoutCollectionInput
+        >
+      | QuestionCollectionCreateWithoutCollectionInput[]
+      | QuestionCollectionUncheckedCreateWithoutCollectionInput[];
+    connectOrCreate?:
+      | QuestionCollectionCreateOrConnectWithoutCollectionInput
+      | QuestionCollectionCreateOrConnectWithoutCollectionInput[];
+    createMany?: QuestionCollectionCreateManyCollectionInputEnvelope;
+    connect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
   };
+
+  export type QuestionCollectionUncheckedCreateNestedManyWithoutCollectionInput =
+    {
+      create?:
+        | XOR<
+            QuestionCollectionCreateWithoutCollectionInput,
+            QuestionCollectionUncheckedCreateWithoutCollectionInput
+          >
+        | QuestionCollectionCreateWithoutCollectionInput[]
+        | QuestionCollectionUncheckedCreateWithoutCollectionInput[];
+      connectOrCreate?:
+        | QuestionCollectionCreateOrConnectWithoutCollectionInput
+        | QuestionCollectionCreateOrConnectWithoutCollectionInput[];
+      createMany?: QuestionCollectionCreateManyCollectionInputEnvelope;
+      connect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+    };
 
   export type UserUpdateOneRequiredWithoutCollectionNestedInput = {
     create?: XOR<
@@ -15025,22 +16461,132 @@ export namespace Prisma {
     >;
   };
 
-  export type QuestionUpdateOneWithoutCollectionNestedInput = {
+  export type QuestionCollectionUpdateManyWithoutCollectionNestedInput = {
+    create?:
+      | XOR<
+          QuestionCollectionCreateWithoutCollectionInput,
+          QuestionCollectionUncheckedCreateWithoutCollectionInput
+        >
+      | QuestionCollectionCreateWithoutCollectionInput[]
+      | QuestionCollectionUncheckedCreateWithoutCollectionInput[];
+    connectOrCreate?:
+      | QuestionCollectionCreateOrConnectWithoutCollectionInput
+      | QuestionCollectionCreateOrConnectWithoutCollectionInput[];
+    upsert?:
+      | QuestionCollectionUpsertWithWhereUniqueWithoutCollectionInput
+      | QuestionCollectionUpsertWithWhereUniqueWithoutCollectionInput[];
+    createMany?: QuestionCollectionCreateManyCollectionInputEnvelope;
+    set?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    disconnect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    delete?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    connect?:
+      | QuestionCollectionWhereUniqueInput
+      | QuestionCollectionWhereUniqueInput[];
+    update?:
+      | QuestionCollectionUpdateWithWhereUniqueWithoutCollectionInput
+      | QuestionCollectionUpdateWithWhereUniqueWithoutCollectionInput[];
+    updateMany?:
+      | QuestionCollectionUpdateManyWithWhereWithoutCollectionInput
+      | QuestionCollectionUpdateManyWithWhereWithoutCollectionInput[];
+    deleteMany?:
+      | QuestionCollectionScalarWhereInput
+      | QuestionCollectionScalarWhereInput[];
+  };
+
+  export type QuestionCollectionUncheckedUpdateManyWithoutCollectionNestedInput =
+    {
+      create?:
+        | XOR<
+            QuestionCollectionCreateWithoutCollectionInput,
+            QuestionCollectionUncheckedCreateWithoutCollectionInput
+          >
+        | QuestionCollectionCreateWithoutCollectionInput[]
+        | QuestionCollectionUncheckedCreateWithoutCollectionInput[];
+      connectOrCreate?:
+        | QuestionCollectionCreateOrConnectWithoutCollectionInput
+        | QuestionCollectionCreateOrConnectWithoutCollectionInput[];
+      upsert?:
+        | QuestionCollectionUpsertWithWhereUniqueWithoutCollectionInput
+        | QuestionCollectionUpsertWithWhereUniqueWithoutCollectionInput[];
+      createMany?: QuestionCollectionCreateManyCollectionInputEnvelope;
+      set?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      disconnect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      delete?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      connect?:
+        | QuestionCollectionWhereUniqueInput
+        | QuestionCollectionWhereUniqueInput[];
+      update?:
+        | QuestionCollectionUpdateWithWhereUniqueWithoutCollectionInput
+        | QuestionCollectionUpdateWithWhereUniqueWithoutCollectionInput[];
+      updateMany?:
+        | QuestionCollectionUpdateManyWithWhereWithoutCollectionInput
+        | QuestionCollectionUpdateManyWithWhereWithoutCollectionInput[];
+      deleteMany?:
+        | QuestionCollectionScalarWhereInput
+        | QuestionCollectionScalarWhereInput[];
+    };
+
+  export type QuestionCreateNestedOneWithoutCollectionsInput = {
     create?: XOR<
-      QuestionCreateWithoutCollectionInput,
-      QuestionUncheckedCreateWithoutCollectionInput
+      QuestionCreateWithoutCollectionsInput,
+      QuestionUncheckedCreateWithoutCollectionsInput
     >;
-    connectOrCreate?: QuestionCreateOrConnectWithoutCollectionInput;
-    upsert?: QuestionUpsertWithoutCollectionInput;
-    disconnect?: boolean;
-    delete?: QuestionWhereInput | boolean;
+    connectOrCreate?: QuestionCreateOrConnectWithoutCollectionsInput;
+    connect?: QuestionWhereUniqueInput;
+  };
+
+  export type CollectionCreateNestedOneWithoutQuestionsInput = {
+    create?: XOR<
+      CollectionCreateWithoutQuestionsInput,
+      CollectionUncheckedCreateWithoutQuestionsInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutQuestionsInput;
+    connect?: CollectionWhereUniqueInput;
+  };
+
+  export type QuestionUpdateOneRequiredWithoutCollectionsNestedInput = {
+    create?: XOR<
+      QuestionCreateWithoutCollectionsInput,
+      QuestionUncheckedCreateWithoutCollectionsInput
+    >;
+    connectOrCreate?: QuestionCreateOrConnectWithoutCollectionsInput;
+    upsert?: QuestionUpsertWithoutCollectionsInput;
     connect?: QuestionWhereUniqueInput;
     update?: XOR<
       XOR<
-        QuestionUpdateToOneWithWhereWithoutCollectionInput,
-        QuestionUpdateWithoutCollectionInput
+        QuestionUpdateToOneWithWhereWithoutCollectionsInput,
+        QuestionUpdateWithoutCollectionsInput
       >,
-      QuestionUncheckedUpdateWithoutCollectionInput
+      QuestionUncheckedUpdateWithoutCollectionsInput
+    >;
+  };
+
+  export type CollectionUpdateOneRequiredWithoutQuestionsNestedInput = {
+    create?: XOR<
+      CollectionCreateWithoutQuestionsInput,
+      CollectionUncheckedCreateWithoutQuestionsInput
+    >;
+    connectOrCreate?: CollectionCreateOrConnectWithoutQuestionsInput;
+    upsert?: CollectionUpsertWithoutQuestionsInput;
+    connect?: CollectionWhereUniqueInput;
+    update?: XOR<
+      XOR<
+        CollectionUpdateToOneWithWhereWithoutQuestionsInput,
+        CollectionUpdateWithoutQuestionsInput
+      >,
+      CollectionUncheckedUpdateWithoutQuestionsInput
     >;
   };
 
@@ -15261,12 +16807,11 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     answers?: AnswerCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
     votes?: VoteCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUncheckedCreateWithoutAuthorInput = {
@@ -15274,12 +16819,11 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
     votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionCreateOrConnectWithoutAuthorInput = {
@@ -15352,12 +16896,14 @@ export namespace Prisma {
 
   export type CollectionCreateWithoutUserInput = {
     id?: string;
-    question?: QuestionCreateNestedOneWithoutCollectionInput;
+    createdAt?: Date | string;
+    questions?: QuestionCollectionCreateNestedManyWithoutCollectionInput;
   };
 
   export type CollectionUncheckedCreateWithoutUserInput = {
     id?: string;
-    questionId?: string | null;
+    createdAt?: Date | string;
+    questions?: QuestionCollectionUncheckedCreateNestedManyWithoutCollectionInput;
   };
 
   export type CollectionCreateOrConnectWithoutUserInput = {
@@ -15366,10 +16912,6 @@ export namespace Prisma {
       CollectionCreateWithoutUserInput,
       CollectionUncheckedCreateWithoutUserInput
     >;
-  };
-
-  export type CollectionCreateManyUserInputEnvelope = {
-    data: CollectionCreateManyUserInput | CollectionCreateManyUserInput[];
   };
 
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
@@ -15451,7 +16993,6 @@ export namespace Prisma {
     summary?: StringFilter<'Question'> | string;
     description?: StringFilter<'Question'> | string;
     views?: IntFilter<'Question'> | number;
-    answersCount?: IntFilter<'Question'> | number;
     createdAt?: DateTimeFilter<'Question'> | Date | string;
   };
 
@@ -15531,8 +17072,7 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<'Vote'> | Date | string;
   };
 
-  export type CollectionUpsertWithWhereUniqueWithoutUserInput = {
-    where: CollectionWhereUniqueInput;
+  export type CollectionUpsertWithoutUserInput = {
     update: XOR<
       CollectionUpdateWithoutUserInput,
       CollectionUncheckedUpdateWithoutUserInput
@@ -15541,31 +17081,25 @@ export namespace Prisma {
       CollectionCreateWithoutUserInput,
       CollectionUncheckedCreateWithoutUserInput
     >;
+    where?: CollectionWhereInput;
   };
 
-  export type CollectionUpdateWithWhereUniqueWithoutUserInput = {
-    where: CollectionWhereUniqueInput;
+  export type CollectionUpdateToOneWithWhereWithoutUserInput = {
+    where?: CollectionWhereInput;
     data: XOR<
       CollectionUpdateWithoutUserInput,
       CollectionUncheckedUpdateWithoutUserInput
     >;
   };
 
-  export type CollectionUpdateManyWithWhereWithoutUserInput = {
-    where: CollectionScalarWhereInput;
-    data: XOR<
-      CollectionUpdateManyMutationInput,
-      CollectionUncheckedUpdateManyWithoutUserInput
-    >;
+  export type CollectionUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    questions?: QuestionCollectionUpdateManyWithoutCollectionNestedInput;
   };
 
-  export type CollectionScalarWhereInput = {
-    AND?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
-    OR?: CollectionScalarWhereInput[];
-    NOT?: CollectionScalarWhereInput | CollectionScalarWhereInput[];
-    id?: StringFilter<'Collection'> | string;
-    userId?: StringFilter<'Collection'> | string;
-    questionId?: StringNullableFilter<'Collection'> | string | null;
+  export type CollectionUncheckedUpdateWithoutUserInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    questions?: QuestionCollectionUncheckedUpdateManyWithoutCollectionNestedInput;
   };
 
   export type UserCreateWithoutAccountsInput = {
@@ -15580,7 +17114,7 @@ export namespace Prisma {
     questions?: QuestionCreateNestedManyWithoutAuthorInput;
     answers?: AnswerCreateNestedManyWithoutAuthorInput;
     votes?: VoteCreateNestedManyWithoutUserInput;
-    Collection?: CollectionCreateNestedManyWithoutUserInput;
+    collection?: CollectionCreateNestedOneWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -15595,7 +17129,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedCreateNestedManyWithoutAuthorInput;
     answers?: AnswerUncheckedCreateNestedManyWithoutAuthorInput;
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutUserInput;
+    collection?: CollectionUncheckedCreateNestedOneWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -15637,7 +17171,7 @@ export namespace Prisma {
     questions?: QuestionUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUpdateOneWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -15651,7 +17185,7 @@ export namespace Prisma {
     questions?: QuestionUncheckedUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUncheckedUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUncheckedUpdateOneWithoutUserNestedInput;
   };
 
   export type UserCreateWithoutQuestionsInput = {
@@ -15666,7 +17200,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput;
     answers?: AnswerCreateNestedManyWithoutAuthorInput;
     votes?: VoteCreateNestedManyWithoutUserInput;
-    Collection?: CollectionCreateNestedManyWithoutUserInput;
+    collection?: CollectionCreateNestedOneWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutQuestionsInput = {
@@ -15681,7 +17215,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     answers?: AnswerUncheckedCreateNestedManyWithoutAuthorInput;
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutUserInput;
+    collection?: CollectionUncheckedCreateNestedOneWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutQuestionsInput = {
@@ -15774,28 +17308,30 @@ export namespace Prisma {
     data: VoteCreateManyQuestionInput | VoteCreateManyQuestionInput[];
   };
 
-  export type CollectionCreateWithoutQuestionInput = {
+  export type QuestionCollectionCreateWithoutQuestionInput = {
     id?: string;
-    user: UserCreateNestedOneWithoutCollectionInput;
+    createdAt?: Date | string;
+    collection: CollectionCreateNestedOneWithoutQuestionsInput;
   };
 
-  export type CollectionUncheckedCreateWithoutQuestionInput = {
+  export type QuestionCollectionUncheckedCreateWithoutQuestionInput = {
     id?: string;
-    userId: string;
+    collectionId: string;
+    createdAt?: Date | string;
   };
 
-  export type CollectionCreateOrConnectWithoutQuestionInput = {
-    where: CollectionWhereUniqueInput;
+  export type QuestionCollectionCreateOrConnectWithoutQuestionInput = {
+    where: QuestionCollectionWhereUniqueInput;
     create: XOR<
-      CollectionCreateWithoutQuestionInput,
-      CollectionUncheckedCreateWithoutQuestionInput
+      QuestionCollectionCreateWithoutQuestionInput,
+      QuestionCollectionUncheckedCreateWithoutQuestionInput
     >;
   };
 
-  export type CollectionCreateManyQuestionInputEnvelope = {
+  export type QuestionCollectionCreateManyQuestionInputEnvelope = {
     data:
-      | CollectionCreateManyQuestionInput
-      | CollectionCreateManyQuestionInput[];
+      | QuestionCollectionCreateManyQuestionInput
+      | QuestionCollectionCreateManyQuestionInput[];
   };
 
   export type UserUpsertWithoutQuestionsInput = {
@@ -15829,7 +17365,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     answers?: AnswerUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUpdateOneWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutQuestionsInput = {
@@ -15843,7 +17379,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     answers?: AnswerUncheckedUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUncheckedUpdateOneWithoutUserNestedInput;
   };
 
   export type AnswerUpsertWithWhereUniqueWithoutQuestionInput = {
@@ -15940,32 +17476,46 @@ export namespace Prisma {
     >;
   };
 
-  export type CollectionUpsertWithWhereUniqueWithoutQuestionInput = {
-    where: CollectionWhereUniqueInput;
+  export type QuestionCollectionUpsertWithWhereUniqueWithoutQuestionInput = {
+    where: QuestionCollectionWhereUniqueInput;
     update: XOR<
-      CollectionUpdateWithoutQuestionInput,
-      CollectionUncheckedUpdateWithoutQuestionInput
+      QuestionCollectionUpdateWithoutQuestionInput,
+      QuestionCollectionUncheckedUpdateWithoutQuestionInput
     >;
     create: XOR<
-      CollectionCreateWithoutQuestionInput,
-      CollectionUncheckedCreateWithoutQuestionInput
+      QuestionCollectionCreateWithoutQuestionInput,
+      QuestionCollectionUncheckedCreateWithoutQuestionInput
     >;
   };
 
-  export type CollectionUpdateWithWhereUniqueWithoutQuestionInput = {
-    where: CollectionWhereUniqueInput;
+  export type QuestionCollectionUpdateWithWhereUniqueWithoutQuestionInput = {
+    where: QuestionCollectionWhereUniqueInput;
     data: XOR<
-      CollectionUpdateWithoutQuestionInput,
-      CollectionUncheckedUpdateWithoutQuestionInput
+      QuestionCollectionUpdateWithoutQuestionInput,
+      QuestionCollectionUncheckedUpdateWithoutQuestionInput
     >;
   };
 
-  export type CollectionUpdateManyWithWhereWithoutQuestionInput = {
-    where: CollectionScalarWhereInput;
+  export type QuestionCollectionUpdateManyWithWhereWithoutQuestionInput = {
+    where: QuestionCollectionScalarWhereInput;
     data: XOR<
-      CollectionUpdateManyMutationInput,
-      CollectionUncheckedUpdateManyWithoutQuestionInput
+      QuestionCollectionUpdateManyMutationInput,
+      QuestionCollectionUncheckedUpdateManyWithoutQuestionInput
     >;
+  };
+
+  export type QuestionCollectionScalarWhereInput = {
+    AND?:
+      | QuestionCollectionScalarWhereInput
+      | QuestionCollectionScalarWhereInput[];
+    OR?: QuestionCollectionScalarWhereInput[];
+    NOT?:
+      | QuestionCollectionScalarWhereInput
+      | QuestionCollectionScalarWhereInput[];
+    id?: StringFilter<'QuestionCollection'> | string;
+    questionId?: StringFilter<'QuestionCollection'> | string;
+    collectionId?: StringFilter<'QuestionCollection'> | string;
+    createdAt?: DateTimeFilter<'QuestionCollection'> | Date | string;
   };
 
   export type QuestionTagCreateWithoutTagInput = {
@@ -16025,12 +17575,11 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     author: UserCreateNestedOneWithoutQuestionsInput;
     answers?: AnswerCreateNestedManyWithoutQuestionInput;
     votes?: VoteCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUncheckedCreateWithoutTagsInput = {
@@ -16039,11 +17588,10 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
     votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionCreateOrConnectWithoutTagsInput = {
@@ -16057,14 +17605,12 @@ export namespace Prisma {
   export type TagCreateWithoutQuestionsInput = {
     id?: string;
     name: string;
-    questionsCount?: number;
     createdAt?: Date | string;
   };
 
   export type TagUncheckedCreateWithoutQuestionsInput = {
     id?: string;
     name: string;
-    questionsCount?: number;
     createdAt?: Date | string;
   };
 
@@ -16100,12 +17646,11 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutQuestionsNestedInput;
     answers?: AnswerUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateWithoutTagsInput = {
@@ -16113,11 +17658,10 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput;
   };
 
   export type TagUpsertWithoutQuestionsInput = {
@@ -16142,13 +17686,11 @@ export namespace Prisma {
 
   export type TagUpdateWithoutQuestionsInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type TagUncheckedUpdateWithoutQuestionsInput = {
     name?: StringFieldUpdateOperationsInput | string;
-    questionsCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
@@ -16164,7 +17706,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput;
     questions?: QuestionCreateNestedManyWithoutAuthorInput;
     votes?: VoteCreateNestedManyWithoutUserInput;
-    Collection?: CollectionCreateNestedManyWithoutUserInput;
+    collection?: CollectionCreateNestedOneWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutAnswersInput = {
@@ -16179,7 +17721,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     questions?: QuestionUncheckedCreateNestedManyWithoutAuthorInput;
     votes?: VoteUncheckedCreateNestedManyWithoutUserInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutUserInput;
+    collection?: CollectionUncheckedCreateNestedOneWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutAnswersInput = {
@@ -16195,12 +17737,11 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     author: UserCreateNestedOneWithoutQuestionsInput;
     tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
     votes?: VoteCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUncheckedCreateWithoutAnswersInput = {
@@ -16209,11 +17750,10 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
     votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionCreateOrConnectWithoutAnswersInput = {
@@ -16283,7 +17823,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     questions?: QuestionUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUpdateOneWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutAnswersInput = {
@@ -16297,7 +17837,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     questions?: QuestionUncheckedUpdateManyWithoutAuthorNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUncheckedUpdateOneWithoutUserNestedInput;
   };
 
   export type QuestionUpsertWithoutAnswersInput = {
@@ -16324,12 +17864,11 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutQuestionsNestedInput;
     tags?: QuestionTagUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateWithoutAnswersInput = {
@@ -16337,11 +17876,10 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     tags?: QuestionTagUncheckedUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput;
   };
 
   export type VoteUpsertWithWhereUniqueWithoutAnswerInput = {
@@ -16384,7 +17922,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput;
     questions?: QuestionCreateNestedManyWithoutAuthorInput;
     answers?: AnswerCreateNestedManyWithoutAuthorInput;
-    Collection?: CollectionCreateNestedManyWithoutUserInput;
+    collection?: CollectionCreateNestedOneWithoutUserInput;
   };
 
   export type UserUncheckedCreateWithoutVotesInput = {
@@ -16399,7 +17937,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput;
     questions?: QuestionUncheckedCreateNestedManyWithoutAuthorInput;
     answers?: AnswerUncheckedCreateNestedManyWithoutAuthorInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutUserInput;
+    collection?: CollectionUncheckedCreateNestedOneWithoutUserInput;
   };
 
   export type UserCreateOrConnectWithoutVotesInput = {
@@ -16415,12 +17953,11 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     author: UserCreateNestedOneWithoutQuestionsInput;
     answers?: AnswerCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionUncheckedCreateWithoutVotesInput = {
@@ -16429,11 +17966,10 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
     answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
     tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
-    Collection?: CollectionUncheckedCreateNestedManyWithoutQuestionInput;
+    collections?: QuestionCollectionUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
   export type QuestionCreateOrConnectWithoutVotesInput = {
@@ -16499,7 +18035,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput;
     questions?: QuestionUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUpdateManyWithoutAuthorNestedInput;
-    Collection?: CollectionUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUpdateOneWithoutUserNestedInput;
   };
 
   export type UserUncheckedUpdateWithoutVotesInput = {
@@ -16513,7 +18049,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput;
     questions?: QuestionUncheckedUpdateManyWithoutAuthorNestedInput;
     answers?: AnswerUncheckedUpdateManyWithoutAuthorNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutUserNestedInput;
+    collection?: CollectionUncheckedUpdateOneWithoutUserNestedInput;
   };
 
   export type QuestionUpsertWithoutVotesInput = {
@@ -16540,12 +18076,11 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutQuestionsNestedInput;
     answers?: AnswerUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateWithoutVotesInput = {
@@ -16553,11 +18088,10 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUncheckedUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput;
   };
 
   export type AnswerUpsertWithoutVotesInput = {
@@ -16632,38 +18166,30 @@ export namespace Prisma {
     >;
   };
 
-  export type QuestionCreateWithoutCollectionInput = {
+  export type QuestionCollectionCreateWithoutCollectionInput = {
     id?: string;
-    summary: string;
-    description: string;
-    views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
-    author: UserCreateNestedOneWithoutQuestionsInput;
-    answers?: AnswerCreateNestedManyWithoutQuestionInput;
-    tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
-    votes?: VoteCreateNestedManyWithoutQuestionInput;
+    question: QuestionCreateNestedOneWithoutCollectionsInput;
   };
 
-  export type QuestionUncheckedCreateWithoutCollectionInput = {
+  export type QuestionCollectionUncheckedCreateWithoutCollectionInput = {
     id?: string;
-    authorId: string;
-    summary: string;
-    description: string;
-    views?: number;
-    answersCount?: number;
+    questionId: string;
     createdAt?: Date | string;
-    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
-    tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
-    votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
   };
 
-  export type QuestionCreateOrConnectWithoutCollectionInput = {
-    where: QuestionWhereUniqueInput;
+  export type QuestionCollectionCreateOrConnectWithoutCollectionInput = {
+    where: QuestionCollectionWhereUniqueInput;
     create: XOR<
-      QuestionCreateWithoutCollectionInput,
-      QuestionUncheckedCreateWithoutCollectionInput
+      QuestionCollectionCreateWithoutCollectionInput,
+      QuestionCollectionUncheckedCreateWithoutCollectionInput
     >;
+  };
+
+  export type QuestionCollectionCreateManyCollectionInputEnvelope = {
+    data:
+      | QuestionCollectionCreateManyCollectionInput
+      | QuestionCollectionCreateManyCollectionInput[];
   };
 
   export type UserUpsertWithoutCollectionInput = {
@@ -16714,31 +18240,110 @@ export namespace Prisma {
     votes?: VoteUncheckedUpdateManyWithoutUserNestedInput;
   };
 
-  export type QuestionUpsertWithoutCollectionInput = {
+  export type QuestionCollectionUpsertWithWhereUniqueWithoutCollectionInput = {
+    where: QuestionCollectionWhereUniqueInput;
     update: XOR<
-      QuestionUpdateWithoutCollectionInput,
-      QuestionUncheckedUpdateWithoutCollectionInput
+      QuestionCollectionUpdateWithoutCollectionInput,
+      QuestionCollectionUncheckedUpdateWithoutCollectionInput
     >;
     create: XOR<
-      QuestionCreateWithoutCollectionInput,
-      QuestionUncheckedCreateWithoutCollectionInput
+      QuestionCollectionCreateWithoutCollectionInput,
+      QuestionCollectionUncheckedCreateWithoutCollectionInput
+    >;
+  };
+
+  export type QuestionCollectionUpdateWithWhereUniqueWithoutCollectionInput = {
+    where: QuestionCollectionWhereUniqueInput;
+    data: XOR<
+      QuestionCollectionUpdateWithoutCollectionInput,
+      QuestionCollectionUncheckedUpdateWithoutCollectionInput
+    >;
+  };
+
+  export type QuestionCollectionUpdateManyWithWhereWithoutCollectionInput = {
+    where: QuestionCollectionScalarWhereInput;
+    data: XOR<
+      QuestionCollectionUpdateManyMutationInput,
+      QuestionCollectionUncheckedUpdateManyWithoutCollectionInput
+    >;
+  };
+
+  export type QuestionCreateWithoutCollectionsInput = {
+    id?: string;
+    summary: string;
+    description: string;
+    views?: number;
+    createdAt?: Date | string;
+    author: UserCreateNestedOneWithoutQuestionsInput;
+    answers?: AnswerCreateNestedManyWithoutQuestionInput;
+    tags?: QuestionTagCreateNestedManyWithoutQuestionInput;
+    votes?: VoteCreateNestedManyWithoutQuestionInput;
+  };
+
+  export type QuestionUncheckedCreateWithoutCollectionsInput = {
+    id?: string;
+    authorId: string;
+    summary: string;
+    description: string;
+    views?: number;
+    createdAt?: Date | string;
+    answers?: AnswerUncheckedCreateNestedManyWithoutQuestionInput;
+    tags?: QuestionTagUncheckedCreateNestedManyWithoutQuestionInput;
+    votes?: VoteUncheckedCreateNestedManyWithoutQuestionInput;
+  };
+
+  export type QuestionCreateOrConnectWithoutCollectionsInput = {
+    where: QuestionWhereUniqueInput;
+    create: XOR<
+      QuestionCreateWithoutCollectionsInput,
+      QuestionUncheckedCreateWithoutCollectionsInput
+    >;
+  };
+
+  export type CollectionCreateWithoutQuestionsInput = {
+    id?: string;
+    createdAt?: Date | string;
+    user: UserCreateNestedOneWithoutCollectionInput;
+  };
+
+  export type CollectionUncheckedCreateWithoutQuestionsInput = {
+    id?: string;
+    userId: string;
+    createdAt?: Date | string;
+  };
+
+  export type CollectionCreateOrConnectWithoutQuestionsInput = {
+    where: CollectionWhereUniqueInput;
+    create: XOR<
+      CollectionCreateWithoutQuestionsInput,
+      CollectionUncheckedCreateWithoutQuestionsInput
+    >;
+  };
+
+  export type QuestionUpsertWithoutCollectionsInput = {
+    update: XOR<
+      QuestionUpdateWithoutCollectionsInput,
+      QuestionUncheckedUpdateWithoutCollectionsInput
+    >;
+    create: XOR<
+      QuestionCreateWithoutCollectionsInput,
+      QuestionUncheckedCreateWithoutCollectionsInput
     >;
     where?: QuestionWhereInput;
   };
 
-  export type QuestionUpdateToOneWithWhereWithoutCollectionInput = {
+  export type QuestionUpdateToOneWithWhereWithoutCollectionsInput = {
     where?: QuestionWhereInput;
     data: XOR<
-      QuestionUpdateWithoutCollectionInput,
-      QuestionUncheckedUpdateWithoutCollectionInput
+      QuestionUpdateWithoutCollectionsInput,
+      QuestionUncheckedUpdateWithoutCollectionsInput
     >;
   };
 
-  export type QuestionUpdateWithoutCollectionInput = {
+  export type QuestionUpdateWithoutCollectionsInput = {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     author?: UserUpdateOneRequiredWithoutQuestionsNestedInput;
     answers?: AnswerUpdateManyWithoutQuestionNestedInput;
@@ -16746,16 +18351,45 @@ export namespace Prisma {
     votes?: VoteUpdateManyWithoutQuestionNestedInput;
   };
 
-  export type QuestionUncheckedUpdateWithoutCollectionInput = {
+  export type QuestionUncheckedUpdateWithoutCollectionsInput = {
     authorId?: StringFieldUpdateOperationsInput | string;
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUncheckedUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutQuestionNestedInput;
+  };
+
+  export type CollectionUpsertWithoutQuestionsInput = {
+    update: XOR<
+      CollectionUpdateWithoutQuestionsInput,
+      CollectionUncheckedUpdateWithoutQuestionsInput
+    >;
+    create: XOR<
+      CollectionCreateWithoutQuestionsInput,
+      CollectionUncheckedCreateWithoutQuestionsInput
+    >;
+    where?: CollectionWhereInput;
+  };
+
+  export type CollectionUpdateToOneWithWhereWithoutQuestionsInput = {
+    where?: CollectionWhereInput;
+    data: XOR<
+      CollectionUpdateWithoutQuestionsInput,
+      CollectionUncheckedUpdateWithoutQuestionsInput
+    >;
+  };
+
+  export type CollectionUpdateWithoutQuestionsInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    user?: UserUpdateOneRequiredWithoutCollectionNestedInput;
+  };
+
+  export type CollectionUncheckedUpdateWithoutQuestionsInput = {
+    userId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type AccountCreateManyUserInput = {
@@ -16773,7 +18407,6 @@ export namespace Prisma {
     summary: string;
     description: string;
     views?: number;
-    answersCount?: number;
     createdAt?: Date | string;
   };
 
@@ -16790,11 +18423,6 @@ export namespace Prisma {
     answerId?: string | null;
     type: $Enums.VoteType;
     createdAt?: Date | string;
-  };
-
-  export type CollectionCreateManyUserInput = {
-    id?: string;
-    questionId?: string | null;
   };
 
   export type AccountUpdateWithoutUserInput = {
@@ -16828,31 +18456,28 @@ export namespace Prisma {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateWithoutAuthorInput = {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
     answers?: AnswerUncheckedUpdateManyWithoutQuestionNestedInput;
     tags?: QuestionTagUncheckedUpdateManyWithoutQuestionNestedInput;
     votes?: VoteUncheckedUpdateManyWithoutQuestionNestedInput;
-    Collection?: CollectionUncheckedUpdateManyWithoutQuestionNestedInput;
+    collections?: QuestionCollectionUncheckedUpdateManyWithoutQuestionNestedInput;
   };
 
   export type QuestionUncheckedUpdateManyWithoutAuthorInput = {
     summary?: StringFieldUpdateOperationsInput | string;
     description?: StringFieldUpdateOperationsInput | string;
     views?: IntFieldUpdateOperationsInput | number;
-    answersCount?: IntFieldUpdateOperationsInput | number;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
@@ -16897,18 +18522,6 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type CollectionUpdateWithoutUserInput = {
-    question?: QuestionUpdateOneWithoutCollectionNestedInput;
-  };
-
-  export type CollectionUncheckedUpdateWithoutUserInput = {
-    questionId?: NullableStringFieldUpdateOperationsInput | string | null;
-  };
-
-  export type CollectionUncheckedUpdateManyWithoutUserInput = {
-    questionId?: NullableStringFieldUpdateOperationsInput | string | null;
-  };
-
   export type AnswerCreateManyQuestionInput = {
     id?: string;
     authorId: string;
@@ -16930,9 +18543,10 @@ export namespace Prisma {
     createdAt?: Date | string;
   };
 
-  export type CollectionCreateManyQuestionInput = {
+  export type QuestionCollectionCreateManyQuestionInput = {
     id?: string;
-    userId: string;
+    collectionId: string;
+    createdAt?: Date | string;
   };
 
   export type AnswerUpdateWithoutQuestionInput = {
@@ -16991,16 +18605,19 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type CollectionUpdateWithoutQuestionInput = {
-    user?: UserUpdateOneRequiredWithoutCollectionNestedInput;
+  export type QuestionCollectionUpdateWithoutQuestionInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    collection?: CollectionUpdateOneRequiredWithoutQuestionsNestedInput;
   };
 
-  export type CollectionUncheckedUpdateWithoutQuestionInput = {
-    userId?: StringFieldUpdateOperationsInput | string;
+  export type QuestionCollectionUncheckedUpdateWithoutQuestionInput = {
+    collectionId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
-  export type CollectionUncheckedUpdateManyWithoutQuestionInput = {
-    userId?: StringFieldUpdateOperationsInput | string;
+  export type QuestionCollectionUncheckedUpdateManyWithoutQuestionInput = {
+    collectionId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 
   export type QuestionTagCreateManyTagInput = {
@@ -17050,6 +18667,27 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string;
     questionId?: NullableStringFieldUpdateOperationsInput | string | null;
     type?: EnumVoteTypeFieldUpdateOperationsInput | $Enums.VoteType;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type QuestionCollectionCreateManyCollectionInput = {
+    id?: string;
+    questionId: string;
+    createdAt?: Date | string;
+  };
+
+  export type QuestionCollectionUpdateWithoutCollectionInput = {
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+    question?: QuestionUpdateOneRequiredWithoutCollectionsNestedInput;
+  };
+
+  export type QuestionCollectionUncheckedUpdateWithoutCollectionInput = {
+    questionId?: StringFieldUpdateOperationsInput | string;
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
+  };
+
+  export type QuestionCollectionUncheckedUpdateManyWithoutCollectionInput = {
+    questionId?: StringFieldUpdateOperationsInput | string;
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string;
   };
 

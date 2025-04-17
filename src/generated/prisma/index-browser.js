@@ -134,14 +134,12 @@ exports.Prisma.QuestionScalarFieldEnum = {
   summary: 'summary',
   description: 'description',
   views: 'views',
-  answersCount: 'answersCount',
   createdAt: 'createdAt',
 };
 
 exports.Prisma.TagScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  questionsCount: 'questionsCount',
   createdAt: 'createdAt',
 };
 
@@ -172,7 +170,14 @@ exports.Prisma.VoteScalarFieldEnum = {
 exports.Prisma.CollectionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
+  createdAt: 'createdAt',
+};
+
+exports.Prisma.QuestionCollectionScalarFieldEnum = {
+  id: 'id',
   questionId: 'questionId',
+  collectionId: 'collectionId',
+  createdAt: 'createdAt',
 };
 
 exports.Prisma.SortOrder = {
@@ -204,6 +209,7 @@ exports.Prisma.ModelName = {
   Answer: 'Answer',
   Vote: 'Vote',
   Collection: 'Collection',
+  QuestionCollection: 'QuestionCollection',
 };
 
 /**
