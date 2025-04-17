@@ -1,0 +1,11 @@
+services:
+  mongo:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - devthreads-db:/data/db
+    ports:
+      - '27017:27017'
+
+volumes:
+  devthreads-db:
