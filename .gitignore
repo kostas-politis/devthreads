@@ -1,0 +1,4 @@
+/.husky/_
+/node_modules
+/dist
+.env
