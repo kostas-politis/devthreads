@@ -11,7 +11,7 @@ export class Correlator {
    * Runs the provided callback within a new correlation ID context.
    *
    * @param callback The function to run within the correlation ID context.
-   * @param correlationId Correlation ID to use instead of generating a new one.
+   * @param correlationId Correlation ID to use.
    */
   public run(callback: () => void, correlationId: string): void {
     this.storage.run({ correlationId }, callback);

@@ -2,26 +2,29 @@ import { AppError } from "./error";
 import { logger } from "./logger";
 import { HttpCode } from "./http-codes";
 /**
- * Centralized error handler for managing application errors and process signals.
- * Handles both operational errors (expected errors that can be recovered from) and
- * catastrophic errors (unexpected errors that require application shutdown).
+ * Centralized error handler for managing application errors and process
+ * signals. Handles both operational errors (expected errors that can be
+ * recovered from) and catastrophic errors (unexpected errors that require
+ * application shutdown).
  */
 class ErrorHandler {
   private exitHandler?: () => Promise<void>;
 
   /**
-   * Sets the exit handler function that will be called during gracefull shutdown
+   * Sets the exit handler function that will be called during gracefull
+   * shutdown
+   *
+   * @example
+   *   ```
+   *   async function exitHandler(): Promise<void> {
+   *    await promisify(server.close.bind(server))();
+   *    logger.info("Express server is terminated.");
+   *   }
+   *   errorHandler.setExitHandler(exitHandler);
+   *   ```;
+   *
    * @param exitHandler Function to be called before process exit.
    * @returns {void}
-   * @example
-   * ```
-   * async function exitHandler(): Promise<void> {
-   *  await promisify(server.close.bind(server))();
-   *  logger.info("Express server is terminated.");
-   * }
-   * errorHandler.setExitHandler(exitHandler);
-   * ```
-   *
    */
   setExitHandler(exitHandler: () => Promise<void>): void {
     this.exitHandler = exitHandler;
@@ -30,6 +33,7 @@ class ErrorHandler {
   /**
    * Registers event listeners for unhandled errors and termination signals.
    * Sets up handlers for:
+   *
    * - `unhandledRejection`: Unhandled promise rejections
    * - `uncaughtException`: Uncaught exceptions
    * - `SIGTERM`: Termination signal (typically from process managers)
@@ -60,6 +64,7 @@ class ErrorHandler {
 
   /**
    * Handles an error by logging and determining if shutdown is required.
+   *
    * @param error The error to handle.
    * @returns The {@link AppError} instance after being handled.
    */
@@ -83,6 +88,7 @@ class ErrorHandler {
 
   /**
    * Converts an unknown error into an {@link AppError} instance.
+   *
    * @param error The error to convert.
    * @returns An {@link AppError} instance.
    */
@@ -100,10 +106,11 @@ class ErrorHandler {
   }
 
   /**
-   * Performs graceful shutdown of the application.
-   * Calls the {@link exitHandler} if set, then exits the process.
+   * Performs graceful shutdown of the application. Calls the {@link exitHandler}
+   * if set, then exits the process.
    *
-   * @returns {Promise<never>} This method never resolves as it exits the process.
+   * @returns {Promise<never>} This method never resolves as it exits the
+   *   process.
    */
   private async gracefulShutdown(): Promise<never> {
     try {
