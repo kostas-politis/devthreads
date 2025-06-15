@@ -1,6 +1,7 @@
 import { AppError } from "./error";
-import { logger } from "./logger";
 import { HttpCode } from "./http-codes";
+import { logger } from "./logger";
+
 /**
  * Centralized error handler for managing application errors and process
  * signals. Handles both operational errors (expected errors that can be

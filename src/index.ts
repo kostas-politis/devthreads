@@ -1,7 +1,8 @@
-import { promisify } from "util";
+// organize-imports-ignore
 import { config } from "@/util/config";
-import { logger } from "@/util/logger";
 import { errorHandler } from "@/util/error-handler";
+import { logger } from "@/util/logger";
+import { promisify } from "util";
 import { app } from "@/entry-points/api/app";
 
 errorHandler.listenToErrorEvents();
