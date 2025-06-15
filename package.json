@@ -15,6 +15,7 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
+    "dev": "node --import=tsx --watch src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky",
     "format": "prettier . --write --ignore-unknown",
@@ -26,18 +27,25 @@
     "@eslint/js": "^9.28.0",
     "@eslint/json": "^0.12.0",
     "@eslint/markdown": "^6.5.0",
+    "@types/express": "^5.0.3",
     "@types/node": "^22.15.30",
     "eslint": "^9.28.0",
     "globals": "^16.2.0",
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
+    "pino-pretty": "^13.0.0",
     "prettier": "^3.5.3",
     "prettier-plugin-sh": "^0.17.4",
     "shellcheck": "^3.1.0",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.33.1"
   },
   "dependencies": {
-    "@types/lint-staged": "^13.3.0"
+    "@types/lint-staged": "^13.3.0",
+    "express": "^5.1.0",
+    "pino": "^9.7.0",
+    "pino-http": "^10.5.0",
+    "zod": "^3.25.64"
   }
 }
