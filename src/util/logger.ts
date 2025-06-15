@@ -11,7 +11,8 @@ export const logger = pino({
     },
   },
   mixin() {
-    return { cid: correlator.getId() ?? "" };
+    const cid = correlator.getId();
+    return cid ? { cid } : {};
   },
   transport:
     config.env.NODE_ENV === "development"

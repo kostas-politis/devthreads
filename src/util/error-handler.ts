@@ -15,19 +15,20 @@ class ErrorHandler {
    * @returns {void}
    * @example
    * ```
-   * import { errorHandler } from "@/util/error-handler";
-   * errorHandler.setExitHandler(() => {
-   *    server.close();
-   *   database.disconnect();
-   * });
+   * async function exitHandler(): Promise<void> {
+   *  await promisify(server.close.bind(server))();
+   *  logger.info("Express server is terminated.");
+   * }
+   * errorHandler.setExitHandler(exitHandler);
    * ```
+   *
    */
   setExitHandler(exitHandler: () => Promise<void>): void {
     this.exitHandler = exitHandler;
   }
 
   /**
-   * Registers event listeners for  for unhandled errors and termination signals.
+   * Registers event listeners for unhandled errors and termination signals.
    * Sets up handlers for:
    * - `unhandledRejection`: Unhandled promise rejections
    * - `uncaughtException`: Uncaught exceptions
@@ -60,7 +61,7 @@ class ErrorHandler {
   /**
    * Handles an error by logging and determining if shutdown is required.
    * @param error The error to handle.
-   * @returns The status code associated with the error.
+   * @returns The {@link AppError} instance after being handled.
    */
   handleError(error: unknown): AppError {
     const appError = this.convertError(error);
