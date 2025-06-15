@@ -7,9 +7,9 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "types": [],
     "outDir": "dist",
     "erasableSyntaxOnly": true,
+    "verbatimModuleSyntax": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
