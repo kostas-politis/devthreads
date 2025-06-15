@@ -1,6 +1,6 @@
+import { logger } from "@/util/logger";
 import express, { json } from "express";
 import { pinoHttp } from "pino-http";
-import { logger } from "@/util/logger";
 import { correlation } from "./middleware/correlation";
 import { error } from "./middleware/error";
 

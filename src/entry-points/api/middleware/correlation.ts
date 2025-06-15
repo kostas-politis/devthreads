@@ -1,8 +1,8 @@
-import type { NextFunction, Request, Response } from "express";
-import { randomUUID } from "crypto";
 import { correlator } from "@/util/correlator";
 import { AppError } from "@/util/error";
 import { HttpCode } from "@/util/http-codes";
+import { randomUUID } from "crypto";
+import type { NextFunction, Request, Response } from "express";
 
 const CORRELATION_ID_HEADER = "x-correlation-id";
 

@@ -1,5 +1,5 @@
-import type { NextFunction, Request, Response } from "express";
 import { errorHandler } from "@/util/error-handler";
+import type { NextFunction, Request, Response } from "express";
 
 export function error(
   error: unknown,
