@@ -3,7 +3,7 @@ import type { NextFunction, Request, Response } from "express";
 
 export function error(
   error: unknown,
-  _req: Request,
+  req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
