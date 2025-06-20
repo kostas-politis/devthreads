@@ -3,11 +3,13 @@ import type { NextFunction, Request, Response } from "express";
 
 export function error(
   error: unknown,
-  req: Request,
+  _req: Request,
   res: Response,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   next: NextFunction,
 ): void {
-  const { code, message } = errorHandler.handleError(error);
-  res.status(code).json({ code, message });
+  const appError = errorHandler.convertError(error);
+  appError.isOperational = true;
+  const { status, message, errors } = errorHandler.handleError(error);
+  res.status(status).json({ status, message, errors });
 }

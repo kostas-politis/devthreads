@@ -1,6 +1,5 @@
 import { correlator } from "@/util/correlator";
 import { AppError } from "@/util/error";
-import { HttpCode } from "@/util/http-codes";
 import { randomUUID } from "crypto";
 import type { NextFunction, Request, Response } from "express";
 
@@ -21,7 +20,7 @@ export function correlation(
   if (Array.isArray(correlationId) || correlationId.includes(",")) {
     throw new AppError(
       `Multiple ${CORRELATION_ID_HEADER} headers not allowed.`,
-      HttpCode.BAD_REQUEST,
+      400,
     );
   }
 
