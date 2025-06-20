@@ -1,5 +1,4 @@
-import { AppError } from "./error";
-import { HttpCode } from "./http-codes";
+import { AppError, InternalServerError } from "./error";
 import { logger } from "./logger";
 
 /**
@@ -22,7 +21,7 @@ class ErrorHandler {
    *    logger.info("Express server is terminated.");
    *   }
    *   errorHandler.setExitHandler(exitHandler);
-   *   ```;
+   *   ```
    *
    * @param exitHandler Function to be called before process exit.
    * @returns {void}
@@ -93,17 +92,12 @@ class ErrorHandler {
    * @param error The error to convert.
    * @returns An {@link AppError} instance.
    */
-  private convertError(error: unknown): AppError {
+  convertError(error: unknown): AppError {
     if (error instanceof AppError) {
       return error;
     }
 
-    return new AppError(
-      "Unknown error",
-      HttpCode.INTERNAL_SERVER_ERROR,
-      false,
-      error,
-    );
+    return new InternalServerError(error);
   }
 
   /**
