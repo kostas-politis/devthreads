@@ -1,14 +1,14 @@
 {
-  "name": "devthreads-server",
+  "name": "devthreads",
   "version": "1.0.0",
   "description": "Backend infrastructure for DevThreads - A platform for asking and answering programming questions",
-  "homepage": "https://github.com/kostas-politis/devthreads-server#readme",
+  "homepage": "https://github.com/kostas-politis/devthreads#readme",
   "bugs": {
-    "url": "https://github.com/kostas-politis/devthreads-server/issues"
+    "url": "https://github.com/kostas-politis/devthreads/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kostas-politis/devthreads-server.git"
+    "url": "git+https://github.com/kostas-politis/devthreads.git"
   },
   "license": "ISC",
   "author": "Konstantinos Politis",
