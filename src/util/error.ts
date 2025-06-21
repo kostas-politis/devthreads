@@ -43,6 +43,6 @@ export class AlreadyExistsError extends AppError {
 
 export class InternalServerError extends AppError {
   constructor(cause: unknown) {
-    super("The server encountered an unexpected error", 500, false, { cause });
+    super("The server encountered an unexpected error", 500, false, cause);
   }
 }
