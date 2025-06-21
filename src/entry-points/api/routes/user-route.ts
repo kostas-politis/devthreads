@@ -1,14 +1,23 @@
+import { createUser, updateUser } from "@/service/user-service";
 import { Router } from "express";
 import { validateRequest } from "../middleware/validation";
-import { UserCreate, UserParams } from "../schema/user-schema";
+import { UserCreate, UserParams, UserUpdate } from "../schema/user-schema";
 
 const router = Router();
 
+router.post("/", validateRequest({ body: UserCreate }), async (req, res) => {
+  const body = req.body as UserCreate;
+  const user = await createUser(body);
+  res.status(201).send(user);
+});
+
 router.put(
   "/:id",
-  validateRequest({ body: UserCreate, params: UserParams }),
-  (req, res) => {
-    res.send("User created");
+  validateRequest({ body: UserUpdate, params: UserParams }),
+  async (req, res) => {
+    const body = req.body as UserUpdate;
+    const user = await updateUser(req.params.id, body);
+    res.status(200).send(user);
   },
 );
 
