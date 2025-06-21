@@ -5,6 +5,9 @@ import { pino, stdTimeFunctions } from "pino";
 export const logger = pino({
   level: config.env.LOG_LEVEL,
   timestamp: stdTimeFunctions.isoTime,
+  serializers: {
+    err: pino.stdSerializers.errWithCause,
+  },
   formatters: {
     level(label) {
       return { level: label };

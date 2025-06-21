@@ -10,6 +10,6 @@ export function error(
 ): void {
   const appError = errorHandler.convertError(error);
   appError.isOperational = true;
-  const { status, message, errors } = errorHandler.handleError(error);
+  const { status, message, errors } = errorHandler.handleError(appError);
   res.status(status).json({ status, message, errors });
 }
