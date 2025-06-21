@@ -19,8 +19,6 @@ export class AppError extends Error {
 
     this.status = status;
     this.isOperational = isOperational;
-
-    Error.captureStackTrace(this);
   }
 }
 
@@ -28,6 +26,18 @@ export class ValidationError extends AppError {
   constructor(errors: ErrorDetails[]) {
     super("The request is not valid", 400);
     this.errors = errors;
+  }
+}
+
+export class NotFoundError extends AppError {
+  constructor() {
+    super("The requested resource was not found", 404);
+  }
+}
+
+export class AlreadyExistsError extends AppError {
+  constructor() {
+    super("The resource being created already exists.", 409);
   }
 }
 
