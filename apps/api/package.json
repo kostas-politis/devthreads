@@ -15,6 +15,7 @@
     "preset": "@repo/jest-presets/node"
   },
   "dependencies": {
+    "@prisma/client": "^6.10.1",
     "@repo/logger": "*",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
