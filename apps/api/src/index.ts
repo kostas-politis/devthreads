@@ -1,9 +1,19 @@
-import { log } from "@repo/logger";
-import { createServer } from "./server";
+// organize-imports-ignore
+import { config } from "@/util/config";
+import { errorHandler } from "@/util/error-handler";
+import { logger } from "@/util/logger";
+import { promisify } from "util";
+import { app } from "@/app";
 
-const port = process.env.PORT || 5001;
-const server = createServer();
+errorHandler.listenToErrorEvents();
 
-server.listen(port, () => {
-  log(`api running on ${port}`);
+const server = app.listen(config.env.PORT, () => {
+  logger.info(`Server running on port 3000`);
 });
+
+async function exitHandler(): Promise<void> {
+  await promisify(server.close.bind(server))();
+  logger.info("Express server is terminated.");
+}
+
+errorHandler.setExitHandler(exitHandler);
