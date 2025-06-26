@@ -1,10 +1,10 @@
-import { logger } from "@/util/logger";
 import express from "express";
 import { pinoHttp } from "pino-http";
-import { correlation } from "./middleware/correlation";
-import { error } from "./middleware/error";
-import { jsonParser } from "./middleware/jsonParser";
-import { userRouter } from "./routes/user-route";
+import { logger } from "../util/logger.ts";
+import { correlation } from "././middleware/correlation.ts";
+import { error } from "././middleware/error.ts";
+import { jsonParser } from "././middleware/jsonParser.ts";
+import { userRouter } from "././routes/user-route.ts";
 
 const app = express();
 

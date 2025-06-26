@@ -1,10 +1,7 @@
-import prisma from "@/client/prisma";
-import type {
-  UserCreate,
-  UserUpdate,
-} from "@/entry-points/api/schema/user-schema";
-import type { User } from "@/generated/prisma";
-import { AlreadyExistsError, NotFoundError } from "@/util/error";
+import prisma from "../connector/prisma.ts";
+import type { User } from "../generated/prisma/client.ts";
+import type { UserCreate, UserUpdate } from "../schema/user-schema.ts";
+import { AlreadyExistsError, NotFoundError } from "../util/error.ts";
 
 export async function createUser(data: UserCreate): Promise<User> {
   const userExists = !!(await getUserByEmail(data.email));
