@@ -1,4 +1,4 @@
-import prisma from "@/client/prisma";
+import prisma from "@/client/prisma.ts";
 import { Prisma } from "@/generated/prisma";
 import { faker } from "@faker-js/faker";
 

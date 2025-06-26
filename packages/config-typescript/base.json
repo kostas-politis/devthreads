@@ -21,11 +21,6 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     /* Completeness */
-    "skipLibCheck": true,
-    /* Other */
-    "outDir": "dist",
-    "paths": {
-      "@/*": ["src/*"]
-    }
+    "skipLibCheck": true
   }
 }
