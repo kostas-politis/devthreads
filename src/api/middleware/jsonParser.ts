@@ -1,5 +1,5 @@
-import { AppError } from "@/util/error";
 import { json, type NextFunction, type Request, type Response } from "express";
+import { AppError } from "../../util/error.ts";
 
 type BodyParserError = Error & {
   type?: string;

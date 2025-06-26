@@ -1,5 +1,5 @@
-import { AppError, InternalServerError } from "./error";
-import { logger } from "./logger";
+import { AppError, InternalServerError } from "./error.ts";
+import { logger } from "./logger.ts";
 
 /**
  * Centralized error handler for managing application errors and process

@@ -1,9 +1,9 @@
 // organize-imports-ignore
-import { config } from "@/util/config";
-import { errorHandler } from "@/util/error-handler";
-import { logger } from "@/util/logger";
+import { config } from "./util/config.ts";
+import { errorHandler } from "./util/error-handler.ts";
+import { logger } from "./util/logger.ts";
 import { promisify } from "util";
-import { app } from "@/entry-points/api/app";
+import { app } from "./api/app.ts";
 
 errorHandler.listenToErrorEvents();
 

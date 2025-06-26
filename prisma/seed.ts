@@ -1,6 +1,6 @@
-import prisma from "@/client/prisma";
-import { Prisma } from "@/generated/prisma";
 import { faker } from "@faker-js/faker";
+import prisma from "../src/connector/prisma.ts";
+import { Prisma } from "../src/generated/prisma/client.ts";
 
 function createUser(): Prisma.UserCreateInput {
   return {

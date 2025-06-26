@@ -1,5 +1,5 @@
-import { errorHandler } from "@/util/error-handler";
 import type { NextFunction, Request, Response } from "express";
+import { errorHandler } from "../../util/error-handler.ts";
 
 export function error(
   error: unknown,

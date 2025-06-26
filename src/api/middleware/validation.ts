@@ -1,6 +1,6 @@
-import { ValidationError, type ErrorDetails } from "@/util/error";
 import type { NextFunction, Request, Response } from "express";
 import { ZodError, ZodType } from "zod/v4";
+import { ValidationError, type ErrorDetails } from "../../util/error.ts";
 
 type RequestValidators = Partial<Record<ErrorDetails["input"], ZodType>>;
 

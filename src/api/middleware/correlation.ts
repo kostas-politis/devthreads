@@ -1,7 +1,7 @@
-import { correlator } from "@/util/correlator";
-import { AppError } from "@/util/error";
 import { randomUUID } from "crypto";
 import type { NextFunction, Request, Response } from "express";
+import { correlator } from "../../util/correlator.ts";
+import { AppError } from "../../util/error.ts";
 
 const CORRELATION_ID_HEADER = "x-correlation-id";
 

@@ -1,7 +1,11 @@
-import { createUser, updateUser } from "@/service/user-service";
 import { Router } from "express";
-import { validateRequest } from "../middleware/validation";
-import { UserCreate, UserParams, UserUpdate } from "../schema/user-schema";
+import {
+  UserCreate,
+  UserParams,
+  UserUpdate,
+} from "../../schema/user-schema.ts";
+import { createUser, updateUser } from "../../service/user-service.ts";
+import { validateRequest } from "../middleware/validation.ts";
 
 const router = Router();
 

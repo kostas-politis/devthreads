@@ -1,12 +1,10 @@
 {
   "compilerOptions": {
     "target": "esnext",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"]
-    },
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
+    "rewriteRelativeImportExtensions": true,
     "outDir": "dist",
     "erasableSyntaxOnly": true,
     "verbatimModuleSyntax": true,
@@ -15,5 +13,6 @@
     "strict": true,
     "skipLibCheck": true,
     "importsNotUsedAsValues": "remove"
-  }
+  },
+  "include": ["src", "generated/prisma"]
 }

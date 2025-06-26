@@ -1,6 +1,6 @@
-import { config } from "@/util/config";
-import { correlator } from "@/util/correlator";
 import { pino, stdTimeFunctions } from "pino";
+import { config } from "./config.ts";
+import { correlator } from "./correlator.ts";
 
 export const logger = pino({
   level: config.env.LOG_LEVEL,
