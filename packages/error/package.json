@@ -1,0 +1,31 @@
+{
+  "name": "@repo/error",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./errors": {
+      "import": "./dist/errors.js",
+      "types": "./dist/errors.d.ts"
+    },
+    "./error-handler": {
+      "import": "./dist/error-handler.js",
+      "types": "./dist/error-handler.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "dev": "tsc --watch --preserveWatchOutput",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint ${FILES:-src/**/*.ts}"
+  },
+  "dependencies": {
+    "@repo/logger": "*"
+  },
+  "devDependencies": {
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "eslint": "^9.30.1"
+  }
+}
