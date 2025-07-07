@@ -21,8 +21,7 @@
     "format": "turbo run format",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "check-types": "turbo run check-types",
-    "start": "node dist/index.js"
+    "check-types": "turbo run check-types"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.1",

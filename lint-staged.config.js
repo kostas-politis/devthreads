@@ -2,7 +2,7 @@
  * @type {import("lint-staged").Configuration}
  * @filename: lint-staged.config.js
  *
- * Each app and package should extend this base config
+ * Each monorepo package should extend this base config
  */
 export const baseConfig = {
   "**/*": ["eslint", "prettier --ignore-unknown --write"],
@@ -17,5 +17,5 @@ export const baseConfig = {
 export default {
   "**/*": ["prettier --ignore-unknown --write"],
   "scripts/**/*": ["shellcheck"],
-  ".husky/*": ["shellcheck"],
+  ".husky/**": ["shellcheck"],
 };
