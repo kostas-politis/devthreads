@@ -15,7 +15,7 @@ app.use(pinoHttp({ logger }));
 
 app.use("/users", userRouter);
 
-app.get("/", (_res, res) => {
+app.get("/", (_req, res) => {
   res.send("Hello World!");
 });
 
