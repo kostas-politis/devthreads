@@ -1,0 +1,7 @@
+{
+  "extends": "@repo/typescript-config/node-app.json",
+  "include": ["src", "generated/prisma"],
+  "compilerOptions": {
+    "outDir": "dist"
+  }
+}
