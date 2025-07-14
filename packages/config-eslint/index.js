@@ -17,7 +17,7 @@ export const config = defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
-    files: ["**/*.{ts,mts,cts}"],
+    files: ["**/*.{ts,mts,cts,tsx}"],
     languageOptions: {
       parserOptions: {
         projectService: true,
@@ -30,7 +30,6 @@ export const config = defineConfig([
     ],
     rules: {
       "@typescript-eslint/consistent-type-definitions": ["error", "type"],
-      "@typescript-eslint/explicit-function-return-type": ["error"],
       "@typescript-eslint/restrict-template-expressions": [
         "error",
         { allowNumber: true },
@@ -41,12 +40,6 @@ export const config = defineConfig([
           checksVoidReturn: {
             arguments: false,
           },
-        },
-      ],
-      "@typescript-eslint/explicit-function-return-type": [
-        "error",
-        {
-          allowExpressions: true,
         },
       ],
     },
