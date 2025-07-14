@@ -3,7 +3,7 @@ import pluginReact from "eslint-plugin-react";
 import pluginReactHooks from "eslint-plugin-react-hooks";
 import { defineConfig } from "eslint/config";
 import globals from "globals";
-import baseConfig from "./index.js";
+import { config as baseConfig } from "./index.js";
 
 export const config = defineConfig([
   ...baseConfig,

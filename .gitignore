@@ -8,8 +8,13 @@ node_modules
 dist
 dist-ssr
 *.local
-.env
+.env*
 .cache
 server/dist
 public/dist
 generated
+.vercel
+*.tsbuildinfo
+next-env.d.ts
+coverage
+out

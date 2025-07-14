@@ -5,7 +5,7 @@ const EnvVarsSchema = z.object({
   LOG_LEVEL: z
     .enum(["fatal", "error", "warn", "info", "debug", "trace"])
     .default("debug"),
-  PORT: z.number().default(3000),
+  PORT: z.number().default(4000),
   NODE_ENV: z.enum(["development", "production"]).default("development"),
 });
 
