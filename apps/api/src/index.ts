@@ -1,22 +1,41 @@
 // organize-imports-ignore
-import "./init.ts";
-import { errorHandler } from "@repo/error/error-handler";
-import { createLogger } from "@repo/logger";
+import { config } from "./util/config.ts";
+import { initBaseLogger, createLogger } from "@repo/logger";
 import { promisify } from "util";
 import { app } from "./app.ts";
-import { config } from "./util/config.ts";
 
-errorHandler.listenToErrorEvents();
+async function bootstrap(): Promise<void> {
+  // Step 1: Initialize base logger configuration
+  initBaseLogger({
+    level: config.LOG_LEVEL,
+    prettyPrint: config.NODE_ENV !== "production",
+    correlation: true,
+  });
 
-const logger = createLogger();
+  const logger = createLogger();
 
-const server = app.listen(config.env.PORT, () => {
-  logger.info(`Express server is listening on port ${config.env.PORT}`);
-});
+  logger.info("Starting application...");
 
-async function exitHandler(): Promise<void> {
-  await promisify(server.close.bind(server))();
-  logger.info("Express server is terminated.");
+  // Step 2: Import error handler after logger is configured
+  const { errorHandler } = await import("@repo/error/error-handler");
+
+  // Step 4: Listen to error events
+  errorHandler.listenToErrorEvents();
+
+  // Step 5: Start the Express server
+  const server = app.listen(config.PORT, () => {
+    logger.info(`Express server is listening on port ${config.PORT}`);
+  });
+
+  // Step 3: Set up shutdown handler
+  errorHandler.setExitHandler(async () => {
+    await promisify(server.close.bind(server))();
+    logger.info("Express server is terminated.");
+  });
 }
 
-errorHandler.setExitHandler(exitHandler);
+// Start the application
+bootstrap().catch((error: unknown) => {
+  console.error("Failed to start application:", error);
+  process.exit(1);
+});
