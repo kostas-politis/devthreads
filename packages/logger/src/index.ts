@@ -1,6 +1,15 @@
+import { loadConfig } from "@repo/config";
 import { correlator } from "@repo/correlator";
 import type { Level, Logger, LoggerOptions } from "pino";
 import { pino, stdTimeFunctions } from "pino";
+import z from "zod/v4";
+
+const LogConfigSchema = z.object({
+  LOG_LEVEL: z.enum(["fatal", "error", "warn", "info", "debug", "trace"]),
+  NODE_ENV: z.enum(["development", "production"]),
+});
+
+export const config = loadConfig(LogConfigSchema);
 
 type LoggerConfig = {
   level: Level;
